@@ -149,3 +149,11 @@ When you create the app record:
 ./tools/release.sh --api-key <KEY_ID> --api-issuer <ISSUER_ID> --team-id <TEAM_ID>
 ```
 
+---
+
+## 🌐 Live Website & Links
+
+* **Landing Page**: [https://tianhaoz95.github.io/TinyTouch/](https://tianhaoz95.github.io/TinyTouch/)
+* **Support & Parent FAQ**: [https://tianhaoz95.github.io/TinyTouch/support.html](https://tianhaoz95.github.io/TinyTouch/support.html)
+* **Privacy Policy**: [https://tianhaoz95.github.io/TinyTouch/privacy.html](https://tianhaoz95.github.io/TinyTouch/privacy.html)
+

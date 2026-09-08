@@ -69,9 +69,9 @@ Set a 3-, 5-, or 10-minute session limit. When time is up, the app smoothly tran
 ---
 
 ## Support & Marketing URLs
-* **Support URL**: `https://github.com/tianhaoz/watch_game#support`
-* **Marketing URL**: `https://github.com/tianhaoz/watch_game`
-* **Privacy Policy URL**: `https://github.com/tianhaoz/watch_game/blob/main/metadata/privacy_policy.md`
+* **Support URL**: `https://tianhaoz95.github.io/TinyTouch/support.html`
+* **Marketing URL**: `https://tianhaoz95.github.io/TinyTouch/`
+* **Privacy Policy URL**: `https://tianhaoz95.github.io/TinyTouch/privacy.html`
 
 ---
 
