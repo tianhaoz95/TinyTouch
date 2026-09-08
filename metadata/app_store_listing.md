@@ -8,14 +8,18 @@
 * **Subtitle** (max 30 characters):  
   `Sensory Play & Accidental Lock` (30 characters)
 
-* **Bundle ID**:  
-  `com.tianhaoz.tinytouch`
+* **Platform in App Store Connect**:  
+  **iOS** (Check the `iOS` box on the "New App" dialog. Apple distributes all Apple Watch apps through the iOS platform umbrella. The upload bundles both the iPhone Companion App and the embedded Apple Watch App).
+
+* **Bundle IDs**:  
+  * Primary iOS App: `com.tianhaoz.tinytouch`
+  * Embedded watchOS App: `com.tianhaoz.tinytouch.watchkitapp`
 
 * **SKU**:  
-  `TINYTOUCH-WATCH-001`
+  `TINYTOUCH-001`
 
 * **Primary Category**:  
-  `Games` > `Family` or `Kids (Ages 5 & Under)`
+  `Games` > `Kids (Ages 5 & Under)` or `Family`
 
 * **Secondary Category**:  
   `Education`

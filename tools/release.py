@@ -70,7 +70,7 @@ def main():
     if args.bump:
         bump_build_number()
         
-    archive_path = os.path.join(workspace_root, "build", "ToddlerPlay.xcarchive")
+    archive_path = os.path.join(workspace_root, "build", "TinyTouch.xcarchive")
     export_path = os.path.join(workspace_root, "build", "AppStoreExport")
     os.makedirs(os.path.join(workspace_root, "build"), exist_ok=True)
     
@@ -78,8 +78,8 @@ def main():
     archive_cmd = [
         "xcodebuild",
         "archive",
-        "-scheme", "ToddlerPlay",
-        "-destination", "generic/platform=watchOS",
+        "-scheme", "TinyTouch",
+        "-destination", "generic/platform=iOS",
         "-archivePath", archive_path
     ]
     
@@ -90,7 +90,7 @@ def main():
         # For dry-run without signing certificates, disable code signing verification
         archive_cmd.append("CODE_SIGNING_ALLOWED=NO")
         
-    run_command(archive_cmd, "Creating watchOS Archive (.xcarchive)")
+    run_command(archive_cmd, "Creating Universal iOS + watchOS Archive (.xcarchive)")
     print(f"✓ Archive created at: {archive_path}")
     
     if args.dry_run:

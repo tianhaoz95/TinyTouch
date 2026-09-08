@@ -68,67 +68,84 @@ When holding a one-and-a-half-year-old toddler, their hands naturally reach for 
 
 ---
 
-## 🛠️ Project Architecture
+## 🛠️ Project Architecture (Universal iOS + watchOS)
 
 ```
-ToddlerPlay/
-├── Sources/
-│   ├── ToddlerPlayApp.swift            # App entry point & scene lifecycle
-│   ├── Models/
-│   │   └── GameMode.swift              # Game mode definitions & metadata
-│   ├── Services/
-│   │   ├── SoundManager.swift          # Low-latency AVAudioPlayer pool & AVSpeechSynthesizer
-│   │   ├── HapticsManager.swift        # Taptic Engine semantic patterns
-│   │   └── SessionKeeper.swift         # WKExtendedRuntimeSession screen wake manager
-│   ├── ViewModels/
-│   │   └── AppState.swift              # Observable central state & session timer
-│   └── Views/
-│       ├── MainContainerView.swift     # Full-screen container, shield, and co-play banner
-│       ├── Components/
-│       │   └── ShapeViews.swift        # Custom vector shapes (Star, Heart, Moon, Bubble)
-│       ├── ParentLock/
-│       │   ├── ParentShieldButton.swift# 3-second hold circular progress lock
-│       │   ├── ParentDashboardView.swift# Activity picker, timers, and sensory options
-│       │   └── ParentGuideView.swift   # Safety guide and Water Lock instructions
-│       └── Games/
-│           ├── BubblePopView.swift     # Bubble pop game
-│           ├── AnimalFriendsView.swift # Animals, bounces, sounds, and speech
-│           ├── SoundGardenView.swift   # Pentatonic xylophone & glissando
-│           ├── SparkleCanvasView.swift # Rainbow touch sparkles & crown vortex
-│           └── SleepyMoonView.swift    # Soothing lullaby wind-down
-├── Resources/
-│   ├── Assets.xcassets/                # 1024x1024 AppIcon and AccentColor
-│   └── Sounds/                         # 16 synthesized 16-bit 44.1kHz PCM WAV assets
+watch_game/
+├── TinyTouchiOS/                       # iPhone Parent Companion Target
+│   ├── Sources/
+│   │   ├── TinyTouchiOSApp.swift       # iOS @main entry point
+│   │   ├── Views/
+│   │   │   ├── ParentDashboardView.swift # iPhone safety dashboard & status
+│   │   │   ├── SafetyGuideView.swift     # Visual 911/SOS lock & Water Lock guide
+│   │   │   └── GamePreviewView.swift     # Interactive sandbox to test 5 sensory modes
+│   │   └── Services/
+│   │       ├── IOSSoundManager.swift     # Low-latency preview audio pool
+│   │       └── IOSHapticsManager.swift   # UIImpactFeedback tactile responses
+│   └── Resources/
+│       ├── Assets.xcassets/            # 1024x1024 iOS AppIcon & AccentColor
+│       ├── PrivacyInfo.xcprivacy       # Privacy Manifest (Zero tracking declared)
+│       └── Sounds/                     # 16 preview WAV sound effects
+├── ToddlerPlay/                        # Apple Watch Target (Embedded in iOS bundle)
+│   ├── Sources/
+│   │   ├── ToddlerPlayApp.swift        # Watch @main entry point
+│   │   ├── Models/GameMode.swift       # 5 game definitions & pedagogical metadata
+│   │   ├── Services/
+│   │   │   ├── SoundManager.swift      # Zero-latency AVAudioPlayer pool & voice synth
+│   │   │   ├── HapticsManager.swift    # Taptic Engine semantic feedback patterns
+│   │   │   └── SessionKeeper.swift     # WKExtendedRuntimeSession keep-alive
+│   │   ├── ViewModels/AppState.swift   # Central state, session timer & mode transition
+│   │   └── Views/
+│   │       ├── MainContainerView.swift # Full-screen canvas & parent shield
+│   │       ├── ParentLock/             # 3-sec hold gate, dashboard, safety guide
+│   │       └── Games/                  # Bubbles, Animals, Sound Garden, Sparkles, Lullaby
+│   └── Resources/
+│       ├── Assets.xcassets/            # watchOS AppIcon & AccentColor
+│       ├── PrivacyInfo.xcprivacy       # Privacy Manifest
+│       └── Sounds/                     # 16 synthesized 16-bit 44.1kHz PCM WAVs
 ├── tools/
-│   ├── generate_project.py             # Generates standalone watchOS .xcodeproj
-│   ├── generate_sounds.py              # Mathematical sound synthesis script
-│   ├── capture_screens.py              # Automated screenshot test harness
-│   └── run_tests.swift                 # Unit test suite (51/51 passing)
-└── screenshots/                        # High-resolution Apple Watch UI screenshots
+│   ├── generate_project.py             # Generates Xcode project with iOS + embedded Watch
+│   ├── release.py                      # Automated App Store Connect archive & uploader
+│   ├── release.sh                      # Quick one-step release launcher
+│   └── run_tests.swift                 # 51/51 automated unit tests
+├── metadata/                           # App Store listing, Privacy Policy & Review Notes
+└── screenshots/                        # High-resolution screenshots for Watch & iPhone
 ```
 
 ---
 
 ## 🚀 Building & Running
 
-### Requirements
-- macOS with Xcode 15+ (tested on Xcode 26.6 / watchOS 26.5 SDK)
-- Apple Watch running watchOS 10.0 or later
-
 ### From the Command Line
 ```bash
-# Build the watchOS app
-xcodebuild -scheme ToddlerPlay -destination 'platform=watchOS Simulator,name=Apple Watch Ultra 3 (49mm)' clean build
-
-# Run unit tests
+# 1. Run unit tests
 swift tools/run_tests.swift
 
-# Install and launch on booted simulator
-xcrun simctl install booted /Users/tianhaoz/Library/Developer/Xcode/DerivedData/ToddlerPlay-*/Build/Products/Debug-watchsimulator/ToddlerPlay.app
-xcrun simctl launch booted com.tianhaoz.tinytouch
+# 2. Build for iPhone Simulator
+xcodebuild -scheme TinyTouch -destination 'platform=iOS Simulator,name=iPhone 17 Pro' CODE_SIGNING_ALLOWED=NO build
+
+# 3. Build for Apple Watch Simulator
+xcodebuild -scheme ToddlerPlay -destination 'platform=watchOS Simulator,name=Apple Watch Ultra 3 (49mm)' CODE_SIGNING_ALLOWED=NO build
+
+# 4. Dry-run archive verification
+python3 tools/release.py --dry-run
 ```
 
-### In Xcode
-1. Open `ToddlerPlay.xcodeproj` in Xcode.
-2. Select the `ToddlerPlay` scheme and your target Apple Watch or Simulator.
-3. Press `Cmd + R` to run!
+---
+
+## 📦 App Store Connect Setup & Release
+
+### Why is there no "watchOS" platform option in App Store Connect?
+In App Store Connect, Apple distributes all Apple Watch apps through the **iOS** platform umbrella. There is no standalone "watchOS" checkbox on the New App creation modal. 
+
+When you create the app record:
+1. Platform: Check **iOS**.
+2. Bundle ID: Select `com.tianhaoz.tinytouch`.
+3. Uploading `TinyTouch` uploads the iPhone Companion App with the Apple Watch app (`com.tianhaoz.tinytouch.watchkitapp`) seamlessly embedded inside.
+4. When parents download TinyTouch on their iPhone, it automatically installs the game onto their paired Apple Watch!
+
+### Automated Release Command
+```bash
+./tools/release.sh --api-key <KEY_ID> --api-issuer <ISSUER_ID> --team-id <TEAM_ID>
+```
+
