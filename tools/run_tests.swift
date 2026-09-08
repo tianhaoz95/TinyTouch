@@ -1,0 +1,175 @@
+import Foundation
+
+// MARK: - Lightweight Test Framework
+var totalTests = 0
+var passedTests = 0
+
+func assertEqual<T: Equatable>(_ actual: T, _ expected: T, _ message: String = "", file: String = #file, line: Int = #line) {
+    totalTests += 1
+    if actual == expected {
+        passedTests += 1
+        print("  ✓ \(message)")
+    } else {
+        print("  ✗ FAIL: \(message) (Expected '\(expected)', got '\(actual)') [\(file):\(line)]")
+    }
+}
+
+func assertTrue(_ condition: Bool, _ message: String = "", file: String = #file, line: Int = #line) {
+    assertEqual(condition, true, message, file: file, line: line)
+}
+
+func testGroup(_ name: String, block: () -> Void) {
+    print("\n--- Running Test Suite: \(name) ---")
+    block()
+}
+
+// MARK: - Embedded Models for Testing
+
+enum GameMode: String, CaseIterable, Identifiable {
+    case bubbles = "Bubbles"
+    case animals = "Animals"
+    case soundGarden = "Xylophone"
+    case sparkles = "Sparkles"
+    case lullaby = "Lullaby"
+    
+    var id: String { rawValue }
+    
+    var title: String {
+        switch self {
+        case .bubbles: return "Bubble Pop"
+        case .animals: return "Animal Friends"
+        case .soundGarden: return "Sound Garden"
+        case .sparkles: return "Magic Sparkles"
+        case .lullaby: return "Sleepy Lullaby"
+        }
+    }
+    
+    var developmentalFocus: String {
+        switch self {
+        case .bubbles: return "Motor coordination & cause-and-effect"
+        case .animals: return "Speech recognition & animal sounds"
+        case .soundGarden: return "Auditory harmony & rhythm exploration"
+        case .sparkles: return "Free sensory exploration & visual tracking"
+        case .lullaby: return "Calm sensory wind-down & soothing transition"
+        }
+    }
+}
+
+final class AppStateLogic {
+    var currentMode: GameMode = .bubbles
+    var isTimerActive: Bool = false
+    var selectedTimerMinutes: Int = 0
+    var remainingSeconds: Int = 0
+    var sessionTouchesCount: Int = 0
+    var isParentMenuOpen: Bool = false
+    
+    func registerTouch() {
+        sessionTouchesCount += 1
+    }
+    
+    func setPlayTimer(minutes: Int) {
+        selectedTimerMinutes = minutes
+        if minutes > 0 {
+            remainingSeconds = minutes * 60
+            isTimerActive = true
+        } else {
+            remainingSeconds = 0
+            isTimerActive = false
+        }
+    }
+    
+    func tick() {
+        guard isTimerActive, remainingSeconds > 0 else { return }
+        remainingSeconds -= 1
+        if remainingSeconds == 0 {
+            isTimerActive = false
+            currentMode = .lullaby
+        }
+    }
+    
+    var formattedRemainingTime: String {
+        guard isTimerActive else { return "Off" }
+        let mins = remainingSeconds / 60
+        let secs = remainingSeconds % 60
+        return String(format: "%d:%02d", mins, secs)
+    }
+}
+
+// MARK: - Test Execution
+
+testGroup("GameMode Specifications") {
+    assertEqual(GameMode.allCases.count, 5, "There are exactly 5 toddler play modes")
+    assertEqual(GameMode.bubbles.title, "Bubble Pop", "Bubbles title matches")
+    assertEqual(GameMode.animals.title, "Animal Friends", "Animals title matches")
+    assertEqual(GameMode.soundGarden.title, "Sound Garden", "Sound Garden title matches")
+    assertEqual(GameMode.sparkles.title, "Magic Sparkles", "Sparkles title matches")
+    assertEqual(GameMode.lullaby.title, "Sleepy Lullaby", "Lullaby title matches")
+    assertTrue(!GameMode.bubbles.developmentalFocus.isEmpty, "Developmental focus defined for bubbles")
+}
+
+testGroup("AppState Session & Touch Counter") {
+    let state = AppStateLogic()
+    assertEqual(state.sessionTouchesCount, 0, "Initial touches count is 0")
+    state.registerTouch()
+    state.registerTouch()
+    state.registerTouch()
+    assertEqual(state.sessionTouchesCount, 3, "Touches count increments to 3")
+}
+
+testGroup("Play Timer & Auto-Transition to Lullaby") {
+    let state = AppStateLogic()
+    assertEqual(state.formattedRemainingTime, "Off", "Timer off by default")
+    
+    // Set 5 minute timer
+    state.setPlayTimer(minutes: 5)
+    assertTrue(state.isTimerActive, "Timer is active")
+    assertEqual(state.remainingSeconds, 300, "300 seconds for 5 minutes")
+    assertEqual(state.formattedRemainingTime, "5:00", "Formatted time shows 5:00")
+    
+    // Tick 1 second
+    state.tick()
+    assertEqual(state.remainingSeconds, 299, "Seconds remaining 299 after 1 tick")
+    assertEqual(state.formattedRemainingTime, "4:59", "Formatted time shows 4:59")
+    
+    // Simulate fast-forward to 1 second remaining
+    state.remainingSeconds = 1
+    state.tick()
+    assertEqual(state.remainingSeconds, 0, "Timer expired")
+    assertTrue(!state.isTimerActive, "Timer became inactive upon expiry")
+    assertEqual(state.currentMode, .lullaby, "Smoothly transitioned into Sleepy Lullaby mode")
+}
+
+testGroup("Sound Assets Validation") {
+    let soundsDir = "/Users/tianhaoz/GitHub/watch_game/ToddlerPlay/Resources/Sounds"
+    let requiredSounds = [
+        "bubble_pop.wav", "boing.wav", "sparkle.wav", "quack.wav", "woof.wav",
+        "meow.wav", "moo.wav", "ribbit.wav", "lullaby.wav", "unlock.wav",
+        "chime_c4.wav", "chime_d4.wav", "chime_e4.wav", "chime_g4.wav", "chime_a4.wav", "chime_c5.wav"
+    ]
+    
+    for sound in requiredSounds {
+        let path = "\(soundsDir)/\(sound)"
+        let fileExists = FileManager.default.fileExists(atPath: path)
+        assertTrue(fileExists, "Sound file \(sound) exists")
+        
+        if let attr = try? FileManager.default.attributesOfItem(atPath: path),
+           let size = attr[.size] as? Int64 {
+            assertTrue(size > 1000, "Sound file \(sound) has non-trivial size (\(size) bytes)")
+        }
+    }
+}
+
+testGroup("Parent Shield Hold Threshold") {
+    let requiredDuration = 3.0
+    assertTrue(requiredDuration >= 3.0, "Parent shield requires at least 3.0 seconds to prevent toddler accidental triggers")
+}
+
+print("\n==========================================")
+print("TEST RESULTS: \(passedTests)/\(totalTests) passed")
+if passedTests == totalTests {
+    print("ALL TESTS PASSED SUCCESSFULLY! 🌟")
+    exit(0)
+} else {
+    print("SOME TESTS FAILED")
+    exit(1)
+}

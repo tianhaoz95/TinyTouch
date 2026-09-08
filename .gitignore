@@ -1,0 +1,12 @@
+# Xcode
+.DS_Store
+xcuserdata/
+*.xcworkspace/xcuserdata/
+DerivedData/
+build/
+*.xcuserstate
+*.xcuserdatad
+
+# Temporary files
+*.swp
+*~
