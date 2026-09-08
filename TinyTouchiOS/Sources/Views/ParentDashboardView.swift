@@ -434,7 +434,7 @@ struct ParentDashboardView: View {
             .background(Color.green.opacity(0.1))
             .cornerRadius(14)
             
-            Text("TinyTouch v1.1 • Connected Apple Watch Companion")
+            Text("TinyTouch v1.2 • Connected Apple Watch Companion")
                 .font(.caption2)
                 .foregroundColor(.secondary)
                 .padding(.bottom, 16)
