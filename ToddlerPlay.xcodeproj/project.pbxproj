@@ -403,17 +403,17 @@
 				TargetAttributes = {
 					000200020002000200020002 = {
 						CreatedOnToolsVersion = 15.0;
-						DevelopmentTeam = 6522A974B3;
+						DevelopmentTeam = 68CTFST8W2;
 						ProvisioningStyle = Automatic;
 					};
 					000300030003000300030003 = {
 						CreatedOnToolsVersion = 15.0;
-						DevelopmentTeam = 6522A974B3;
+						DevelopmentTeam = 68CTFST8W2;
 						ProvisioningStyle = Automatic;
 					};
 					002100210021002100210021 = {
 						CreatedOnToolsVersion = 15.0;
-						DevelopmentTeam = 6522A974B3;
+						DevelopmentTeam = 68CTFST8W2;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -608,7 +608,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6522A974B3;
+				DEVELOPMENT_TEAM = 68CTFST8W2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "TinyTouch";
@@ -641,7 +641,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6522A974B3;
+				DEVELOPMENT_TEAM = 68CTFST8W2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "TinyTouch";
@@ -673,7 +673,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6522A974B3;
+				DEVELOPMENT_TEAM = 68CTFST8W2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "TinyTouch";
@@ -708,7 +708,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6522A974B3;
+				DEVELOPMENT_TEAM = 68CTFST8W2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = "TinyTouch";
@@ -740,7 +740,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6522A974B3;
+				DEVELOPMENT_TEAM = 68CTFST8W2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TinyTouchWidget/Info.plist;
@@ -771,7 +771,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6522A974B3;
+				DEVELOPMENT_TEAM = 68CTFST8W2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TinyTouchWidget/Info.plist;

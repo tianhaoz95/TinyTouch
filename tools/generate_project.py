@@ -1,10 +1,29 @@
 #!/usr/bin/env python3
 import os
 import sys
+import re
+
+def get_existing_development_team(default_team="68CTFST8W2"):
+    pbx_path = "ToddlerPlay.xcodeproj/project.pbxproj"
+    if os.path.exists(pbx_path):
+        try:
+            with open(pbx_path, "r") as f:
+                content = f.read()
+            match = re.search(r'DEVELOPMENT_TEAM\s*=\s*([A-Z0-9]+);', content)
+            if match:
+                return match.group(1)
+            match2 = re.search(r'DevelopmentTeam\s*=\s*([A-Z0-9]+);', content)
+            if match2:
+                return match2.group(1)
+        except Exception:
+            pass
+    return os.environ.get("DEVELOPMENT_TEAM", default_team)
 
 def generate_project(ios_sources, ios_resources, watch_sources, watch_resources, widget_sources=None, widget_resources=None):
     if widget_sources is None: widget_sources = []
     if widget_resources is None: widget_resources = []
+    
+    dev_team = get_existing_development_team()
     
     os.makedirs("ToddlerPlay.xcodeproj/xcshareddata/xcschemes", exist_ok=True)
     
@@ -391,17 +410,17 @@ def generate_project(ios_sources, ios_resources, watch_sources, watch_resources,
     pbx.append("\t\t\t\tTargetAttributes = {")
     pbx.append(f"\t\t\t\t\t{ios_target_id} = {{")
     pbx.append("\t\t\t\t\t\tCreatedOnToolsVersion = 15.0;")
-    pbx.append("\t\t\t\t\t\tDevelopmentTeam = 6522A974B3;")
+    pbx.append(f"\t\t\t\t\t\tDevelopmentTeam = {dev_team};")
     pbx.append("\t\t\t\t\t\tProvisioningStyle = Automatic;")
     pbx.append("\t\t\t\t\t};")
     pbx.append(f"\t\t\t\t\t{watch_target_id} = {{")
     pbx.append("\t\t\t\t\t\tCreatedOnToolsVersion = 15.0;")
-    pbx.append("\t\t\t\t\t\tDevelopmentTeam = 6522A974B3;")
+    pbx.append(f"\t\t\t\t\t\tDevelopmentTeam = {dev_team};")
     pbx.append("\t\t\t\t\t\tProvisioningStyle = Automatic;")
     pbx.append("\t\t\t\t\t};")
     pbx.append(f"\t\t\t\t\t{widget_target_id} = {{")
     pbx.append("\t\t\t\t\t\tCreatedOnToolsVersion = 15.0;")
-    pbx.append("\t\t\t\t\t\tDevelopmentTeam = 6522A974B3;")
+    pbx.append(f"\t\t\t\t\t\tDevelopmentTeam = {dev_team};")
     pbx.append("\t\t\t\t\t\tProvisioningStyle = Automatic;")
     pbx.append("\t\t\t\t\t};")
     pbx.append("\t\t\t\t};")
@@ -564,7 +583,7 @@ def generate_project(ios_sources, ios_resources, watch_sources, watch_resources,
     pbx.append("\t\t\t\tASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;")
     pbx.append("\t\t\t\tASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;")
     pbx.append("\t\t\t\tCODE_SIGN_STYLE = Automatic;")
-    pbx.append("\t\t\t\tDEVELOPMENT_TEAM = 6522A974B3;")
+    pbx.append(f"\t\t\t\tDEVELOPMENT_TEAM = {dev_team};")
     pbx.append("\t\t\t\tENABLE_PREVIEWS = YES;")
     pbx.append("\t\t\t\tGENERATE_INFOPLIST_FILE = YES;")
     pbx.append("\t\t\t\tINFOPLIST_KEY_CFBundleDisplayName = \"TinyTouch\";")
@@ -599,7 +618,7 @@ def generate_project(ios_sources, ios_resources, watch_sources, watch_resources,
     pbx.append("\t\t\t\tASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;")
     pbx.append("\t\t\t\tASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;")
     pbx.append("\t\t\t\tCODE_SIGN_STYLE = Automatic;")
-    pbx.append("\t\t\t\tDEVELOPMENT_TEAM = 6522A974B3;")
+    pbx.append(f"\t\t\t\tDEVELOPMENT_TEAM = {dev_team};")
     pbx.append("\t\t\t\tENABLE_PREVIEWS = YES;")
     pbx.append("\t\t\t\tGENERATE_INFOPLIST_FILE = YES;")
     pbx.append("\t\t\t\tINFOPLIST_KEY_CFBundleDisplayName = \"TinyTouch\";")
@@ -633,7 +652,7 @@ def generate_project(ios_sources, ios_resources, watch_sources, watch_resources,
     pbx.append("\t\t\t\tASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;")
     pbx.append("\t\t\t\tASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;")
     pbx.append("\t\t\t\tCODE_SIGN_STYLE = Automatic;")
-    pbx.append("\t\t\t\tDEVELOPMENT_TEAM = 6522A974B3;")
+    pbx.append(f"\t\t\t\tDEVELOPMENT_TEAM = {dev_team};")
     pbx.append("\t\t\t\tENABLE_PREVIEWS = YES;")
     pbx.append("\t\t\t\tGENERATE_INFOPLIST_FILE = YES;")
     pbx.append("\t\t\t\tINFOPLIST_KEY_CFBundleDisplayName = \"TinyTouch\";")
@@ -670,7 +689,7 @@ def generate_project(ios_sources, ios_resources, watch_sources, watch_resources,
     pbx.append("\t\t\t\tASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;")
     pbx.append("\t\t\t\tASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;")
     pbx.append("\t\t\t\tCODE_SIGN_STYLE = Automatic;")
-    pbx.append("\t\t\t\tDEVELOPMENT_TEAM = 6522A974B3;")
+    pbx.append(f"\t\t\t\tDEVELOPMENT_TEAM = {dev_team};")
     pbx.append("\t\t\t\tENABLE_PREVIEWS = YES;")
     pbx.append("\t\t\t\tGENERATE_INFOPLIST_FILE = YES;")
     pbx.append("\t\t\t\tINFOPLIST_KEY_CFBundleDisplayName = \"TinyTouch\";")
@@ -704,7 +723,7 @@ def generate_project(ios_sources, ios_resources, watch_sources, watch_resources,
     pbx.append("\t\t\tisa = XCBuildConfiguration;")
     pbx.append("\t\t\tbuildSettings = {")
     pbx.append("\t\t\t\tCODE_SIGN_STYLE = Automatic;")
-    pbx.append("\t\t\t\tDEVELOPMENT_TEAM = 6522A974B3;")
+    pbx.append(f"\t\t\t\tDEVELOPMENT_TEAM = {dev_team};")
     pbx.append("\t\t\t\tENABLE_PREVIEWS = YES;")
     pbx.append("\t\t\t\tGENERATE_INFOPLIST_FILE = YES;")
     pbx.append("\t\t\t\tINFOPLIST_FILE = TinyTouchWidget/Info.plist;")
@@ -737,7 +756,7 @@ def generate_project(ios_sources, ios_resources, watch_sources, watch_resources,
     pbx.append("\t\t\tisa = XCBuildConfiguration;")
     pbx.append("\t\t\tbuildSettings = {")
     pbx.append("\t\t\t\tCODE_SIGN_STYLE = Automatic;")
-    pbx.append("\t\t\t\tDEVELOPMENT_TEAM = 6522A974B3;")
+    pbx.append(f"\t\t\t\tDEVELOPMENT_TEAM = {dev_team};")
     pbx.append("\t\t\t\tENABLE_PREVIEWS = YES;")
     pbx.append("\t\t\t\tGENERATE_INFOPLIST_FILE = YES;")
     pbx.append("\t\t\t\tINFOPLIST_FILE = TinyTouchWidget/Info.plist;")
