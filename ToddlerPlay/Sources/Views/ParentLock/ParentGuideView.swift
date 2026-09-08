@@ -16,48 +16,84 @@ struct ParentGuideView: View {
                 }
                 .padding(.top, 4)
                 
-                // Tip 1: Screen Containment
+                // Tip 1: Physical Buttons & Apple Restrictions
+                VStack(alignment: .leading, spacing: 4) {
+                    Label("Can Buttons Be Locked?", systemImage: "button.programmable")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(.pink)
+                    Text("Apple does not allow any third-party app to disable the physical click of the Digital Crown or Side Button for safety reasons (to prevent trapping users and ensure emergency call access). However, you can completely protect against accidental calls using the steps below!")
+                        .font(.system(size: 10))
+                        .foregroundColor(.gray)
+                }
+                .padding(8)
+                .background(RoundedRectangle(cornerRadius: 8).fill(Color.white.opacity(0.08)))
+                
+                // Tip 2: Prevent Accidental Emergency 911 Calls
+                VStack(alignment: .leading, spacing: 4) {
+                    Label("Prevent 911 Auto-Dial", systemImage: "sos.circle.fill")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(.red)
+                    Text("When toddlers squeeze the watch, they can trigger emergency SOS. To stop auto-dialing:\n• Go to Watch Settings → SOS\n• Turn OFF 'Hold Side Button to Dial'.\nNow holding the button will NEVER dial emergency services automatically.")
+                        .font(.system(size: 10))
+                        .foregroundColor(.gray)
+                }
+                .padding(8)
+                .background(RoundedRectangle(cornerRadius: 8).fill(Color.white.opacity(0.08)))
+                
+                // Tip 3: The Crown Orientation Trick
+                VStack(alignment: .leading, spacing: 4) {
+                    Label("Crown Flip Trick", systemImage: "arrow.triangle.2.circlepath")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(.orange)
+                    Text("In Watch Settings → General → Orientation, switch the Digital Crown to face toward your elbow instead of your hand. When holding a toddler, the child's fingers reach towards your wrist and cannot reach or squeeze the buttons!")
+                        .font(.system(size: 10))
+                        .foregroundColor(.gray)
+                }
+                .padding(8)
+                .background(RoundedRectangle(cornerRadius: 8).fill(Color.white.opacity(0.08)))
+                
+                // Tip 4: Keep App Active on Return
+                VStack(alignment: .leading, spacing: 4) {
+                    Label("Return to App: 1 Hour", systemImage: "clock.arrow.circlepath")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(.yellow)
+                    Text("In Watch Settings → General → Return to Clock, set 'After 1 hour'. If the toddler clicks the Crown, the watch will immediately return to TinyTouch when woken back up.")
+                        .font(.system(size: 10))
+                        .foregroundColor(.gray)
+                }
+                .padding(8)
+                .background(RoundedRectangle(cornerRadius: 8).fill(Color.white.opacity(0.08)))
+                
+                // Tip 5: Screen Containment
                 VStack(alignment: .leading, spacing: 4) {
                     Label("Screen Lockout", systemImage: "lock.shield.fill")
-                        .font(.system(size: 13, weight: .bold))
+                        .font(.system(size: 12, weight: .bold))
                         .foregroundColor(.green)
-                    Text("While TinyTouch is open, edge-to-edge gestures are absorbed by the app. Accidental phone calls, notification swipes, and watch face complications cannot be triggered by the toddler.")
+                    Text("While TinyTouch is open, all screen touches are absorbed. Accidental phone calls, notification swipes, and watch face complications cannot be triggered by the toddler.")
                         .font(.system(size: 10))
                         .foregroundColor(.gray)
                 }
                 .padding(8)
                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.white.opacity(0.08)))
                 
-                // Tip 2: Digital Crown Taming
+                // Tip 6: Digital Crown Taming
                 VStack(alignment: .leading, spacing: 4) {
-                    Label("Digital Crown Tamed", systemImage: "circle.circle")
-                        .font(.system(size: 13, weight: .bold))
-                        .foregroundColor(.orange)
-                    Text("Turning the Crown won't dismiss the app or open system menus. Instead, it plays musical notes, inflates bubbles, and spins animals with haptic ticks!")
-                        .font(.system(size: 10))
-                        .foregroundColor(.gray)
-                }
-                .padding(8)
-                .background(RoundedRectangle(cornerRadius: 8).fill(Color.white.opacity(0.08)))
-                
-                // Tip 3: Total Touch Freeze (Water Lock)
-                VStack(alignment: .leading, spacing: 4) {
-                    Label("Water Lock Trick", systemImage: "drop.fill")
-                        .font(.system(size: 13, weight: .bold))
+                    Label("Crown Rotation Tamed", systemImage: "circle.circle")
+                        .font(.system(size: 12, weight: .bold))
                         .foregroundColor(.cyan)
-                    Text("If you want the child to watch animations or listen to lullabies with ZERO touch input, press your watch's Side Button and tap the Water Drop icon. Apple Watch will ignore all taps until you press and hold the Crown.")
+                    Text("Turning the Crown won't scroll out or open Smart Stack. Instead, TinyTouch routes rotation into musical chimes, bubble inflation, and kaleidoscope effects.")
                         .font(.system(size: 10))
                         .foregroundColor(.gray)
                 }
                 .padding(8)
                 .background(RoundedRectangle(cornerRadius: 8).fill(Color.white.opacity(0.08)))
                 
-                // Tip 4: Screen Awake
+                // Tip 7: Total Touch Freeze (Water Lock)
                 VStack(alignment: .leading, spacing: 4) {
-                    Label("Screen Stays Awake", systemImage: "sun.max.fill")
-                        .font(.system(size: 13, weight: .bold))
-                        .foregroundColor(.yellow)
-                    Text("TinyTouch runs an active extended session, keeping the display alive even when your wrist is angled while holding your toddler.")
+                    Label("Water Lock Mode", systemImage: "drop.fill")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(.blue)
+                    Text("If you want the child to watch animations or listen to lullabies with ZERO touch input, press the Side Button and tap the Water Drop icon. Apple Watch will ignore all screen touches until you press and hold the Crown.")
                         .font(.system(size: 10))
                         .foregroundColor(.gray)
                 }
