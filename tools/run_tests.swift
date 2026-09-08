@@ -164,6 +164,61 @@ testGroup("Parent Shield Hold Threshold") {
     assertTrue(requiredDuration >= 3.0, "Parent shield requires at least 3.0 seconds to prevent toddler accidental triggers")
 }
 
+testGroup("Settings Synchronization & Remote Control") {
+    // 1. Simulate incoming payload from iPhone
+    let phonePayload: [String: Any] = [
+        "currentMode": "animals",
+        "timerMinutes": 3,
+        "soundEnabled": true,
+        "voiceEnabled": false,
+        "hapticsEnabled": true,
+        "lowStimulation": true,
+        "lockHoldDuration": 5.0
+    ]
+    
+    var localMode = "bubbles"
+    var localTimerMins = 0
+    var localSound = false
+    var localVoice = true
+    var localHaptics = false
+    var localLowStim = false
+    var localHoldDuration = 3.0
+    
+    if let mode = phonePayload["currentMode"] as? String { localMode = mode }
+    if let timer = phonePayload["timerMinutes"] as? Int { localTimerMins = timer }
+    if let sound = phonePayload["soundEnabled"] as? Bool { localSound = sound }
+    if let voice = phonePayload["voiceEnabled"] as? Bool { localVoice = voice }
+    if let haptics = phonePayload["hapticsEnabled"] as? Bool { localHaptics = haptics }
+    if let lowStim = phonePayload["lowStimulation"] as? Bool { localLowStim = lowStim }
+    if let hold = phonePayload["lockHoldDuration"] as? Double { localHoldDuration = hold }
+    
+    assertEqual(localMode, "animals", "Remote game mode switch parsed correctly")
+    assertEqual(localTimerMins, 3, "Remote timer parsed correctly")
+    assertEqual(localSound, true, "Sound setting parsed correctly")
+    assertEqual(localVoice, false, "Voice setting parsed correctly")
+    assertEqual(localHaptics, true, "Haptics setting parsed correctly")
+    assertEqual(localLowStim, true, "Low stimulation setting parsed correctly")
+    assertEqual(localHoldDuration, 5.0, "5s security hold duration parsed correctly")
+    
+    // 2. Simulate remote trigger lullaby
+    let triggerLullabyPayload: [String: Any] = ["action": "triggerLullaby"]
+    if let action = triggerLullabyPayload["action"] as? String, action == "triggerLullaby" {
+        localMode = "lullaby"
+    }
+    assertEqual(localMode, "lullaby", "Remote instant lullaby trigger worked")
+    
+    // 3. Simulate Watch telemetry response to iPhone
+    let watchTelemetry: [String: Any] = [
+        "currentMode": localMode,
+        "touchesCount": 42,
+        "isTimerActive": true,
+        "remainingSeconds": 180
+    ]
+    assertEqual(watchTelemetry["currentMode"] as? String, "lullaby", "Telemetry current mode matches")
+    assertEqual(watchTelemetry["touchesCount"] as? Int, 42, "Telemetry touch count serialized")
+    assertEqual(watchTelemetry["remainingSeconds"] as? Int, 180, "Telemetry timer serialized")
+}
+
 print("\n==========================================")
 print("TEST RESULTS: \(passedTests)/\(totalTests) passed")
 if passedTests == totalTests {

@@ -12,7 +12,7 @@ struct ParentShieldButton: View {
     @State private var holdTimer: AnyCancellable?
     @State private var showHint = false
     
-    private let requiredHoldDuration: Double = 3.0 // 3 full seconds
+    private var requiredHoldDuration: Double { appState.lockHoldDuration }
     private let tickInterval: Double = 0.05
     
     var body: some View {
@@ -58,7 +58,7 @@ struct ParentShieldButton: View {
         .overlay(
             Group {
                 if showHint {
-                    Text("Hold 3s")
+                    Text(String(format: "Hold %.0fs", requiredHoldDuration))
                         .font(.system(size: 9, weight: .bold))
                         .foregroundColor(.yellow)
                         .padding(.horizontal, 6)

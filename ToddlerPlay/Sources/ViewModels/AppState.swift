@@ -24,6 +24,7 @@ final class AppState: ObservableObject {
         didSet { HapticsManager.shared.isEnabled = hapticsEnabled }
     }
     @Published var lowStimulation: Bool = false
+    @Published var lockHoldDuration: Double = 3.0 // 3.0 or 5.0 seconds
     
     // Session Timer
     @Published var selectedTimerMinutes: Int = 0 // 0 = unlimited
@@ -65,6 +66,8 @@ final class AppState: ObservableObject {
         }
         
         startSession()
+        WatchConnectivityManager.shared.appState = self
+        WatchConnectivityManager.shared.sendStatusUpdate()
     }
     
     func startSession() {
@@ -82,6 +85,9 @@ final class AppState: ObservableObject {
     
     func registerTouch() {
         sessionTouchesCount += 1
+        if sessionTouchesCount % 3 == 0 {
+            WatchConnectivityManager.shared.sendStatusUpdate()
+        }
     }
     
     func setPlayTimer(minutes: Int) {
@@ -93,6 +99,7 @@ final class AppState: ObservableObject {
             remainingSeconds = 0
             isTimerActive = false
         }
+        WatchConnectivityManager.shared.sendStatusUpdate()
     }
     
     private func onTimerTick() {
