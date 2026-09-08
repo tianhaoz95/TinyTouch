@@ -244,26 +244,6 @@ testGroup("Watch Face Widget (Complication) Specifications") {
     assertTrue(widgetPlistExists, "TinyTouchWidget/Info.plist exists")
 }
 
-testGroup("Fastlane CI/CD Automation Specifications") {
-    let gemfileExists = FileManager.default.fileExists(atPath: "Gemfile")
-    assertTrue(gemfileExists, "Gemfile exists in project root")
-    
-    let appfileExists = FileManager.default.fileExists(atPath: "fastlane/Appfile")
-    assertTrue(appfileExists, "fastlane/Appfile exists")
-    
-    let fastfileExists = FileManager.default.fileExists(atPath: "fastlane/Fastfile")
-    assertTrue(fastfileExists, "fastlane/Fastfile exists")
-    
-    let descExists = FileManager.default.fileExists(atPath: "fastlane/metadata/en-US/description.txt")
-    assertTrue(descExists, "fastlane/metadata/en-US/description.txt exists")
-    
-    let keywordsExists = FileManager.default.fileExists(atPath: "fastlane/metadata/en-US/keywords.txt")
-    assertTrue(keywordsExists, "fastlane/metadata/en-US/keywords.txt exists")
-    
-    let reviewNotesExists = FileManager.default.fileExists(atPath: "fastlane/metadata/review_information/notes.txt")
-    assertTrue(reviewNotesExists, "fastlane/metadata/review_information/notes.txt exists")
-}
-
 
 print("\n==========================================")
 print("TEST RESULTS: \(passedTests)/\(totalTests) passed")

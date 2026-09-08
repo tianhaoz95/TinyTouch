@@ -11,8 +11,3 @@ build/
 *.swp
 *~
 
-# Fastlane & Environment
-.env
-fastlane/report.xml
-fastlane/Preview.html
-
