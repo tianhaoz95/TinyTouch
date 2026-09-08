@@ -33,33 +33,53 @@
 
 ## Description
 
-Hold your toddler without worrying about accidental dials, deleted messages, or unexpected emergency calls!
+Hold your toddler without worrying about accidental phone dials, deleted messages, or unexpected 911 calls!
 
-TinyTouch was created by parents for parents. When holding a 1- to 2-year-old toddler, their hands naturally gravitate to your Apple Watch. TinyTouch transforms your wrist into a delightful, low-stimulation sensory playground while locking down the screen to prevent accidental system interactions.
+TinyTouch was created by parents, for parents. When holding a one- or two-year-old toddler, their little hands naturally gravitate toward the glowing screen on your wrist. TinyTouch transforms your Apple Watch into a gentle, developmentally grounded sensory playground while locking down edge-to-edge touch gestures so your child cannot trigger unexpected system actions.
 
-### 🛡️ DUAL-ACTION LOCKOUT & PLAY
-* **Accidental-Touch Shield**: TinyTouch absorbs 100% of edge-to-edge screen interactions. Toddlers cannot pull down notifications, open Control Center, or tap watch face complications.
-* **3-Second Parent Shield**: Exiting toddler mode or accessing settings requires a continuous 3-second hold on the parent lock button with an animated circular progress ring and haptic pulses—something an 18-month-old cannot trigger.
-* **Digital Crown Tamed**: Rather than scrolling out or opening Smart Stack, turning the Crown creates musical glissandos and inflates giant bubbles with satisfying tactile clicks.
-* **Screen Stay-Awake**: Runs an active extended session so the display stays bright and responsive even when your wrist is angled while holding your child.
+And now, with the iPhone Companion App, you can remotely control what is playing on your watch without having to pry it away from little hands!
 
-### 🧸 5 DEVELOPMENTALLY GROUNDED SENSORY ACTIVITIES
+
+DUAL-ACTION LOCKOUT AND PLAY
+- Accidental-Touch Shield: TinyTouch captures 100% of full-screen touches. Toddlers cannot pull down notifications, open Control Center, or tap watch face complications.
+- 3-Second Parent Shield: Exiting toddler play or accessing settings requires a continuous 3-second hold on the lock button with an animated circular progress ring and haptic pulses -- something an 18-month-old cannot trigger.
+- Digital Crown Tamed: Turning the Crown produces musical glissandos and inflates giant bubbles with tactile clicks rather than exiting into Smart Stack.
+- Screen Stay-Awake: Extended session management keeps the screen bright and responsive while you hold your child.
+
+
+LIVE IPHONE PARENT REMOTE
+- Instant Game Switcher: Remotely change the activity on your Apple Watch right from your phone (e.g., switch from bubbles to animal sounds with one tap).
+- Play Session Timers: Set gentle 3-, 5-, or 10-minute session limits from your iPhone.
+- Remote Lullaby Trigger: Wrap up playtime gracefully by triggering the starry Sleepy Moon lullaby from your phone -- preventing abrupt screen cutoffs and tantrums.
+- Live Activity Telemetry: View your childs total sensory touches and remaining timer countdown in real time on your phone.
+- Safety Blueprint: Step-by-step visual instructions on how to disable watchOS "Hold Side Button to Auto-Dial 911" and how to use Water Lock for total touch freeze.
+
+
+5 LOW-STIMULATION SENSORY ACTIVITIES
 Designed according to pediatric low-stimulation principles (no fast flashing, no predatory reward loops, no losing states):
-1. **Bubble Pop & Shapes**: Floating translucent bubbles with stars and hearts. Tapping pops them with particle confetti; empty space spawns new bubbles. Turning the Crown inflates a giant bubble!
-2. **Animal Friends**: Bouncy Puppy, Kitty, Duck, Cow, Frog, and Bunny. Features springy animations, realistic animal sounds, and gentle spoken words ("Duck! Quack quack!") to foster early speech mimicry.
-3. **Sound Garden (Xylophone)**: 6 glowing chime bars tuned to the Pentatonic Scale (C, D, E, G, A, C5). Mathematically consonant—every random toddler tap creates a pleasant, harmonious melody!
-4. **Magic Sparkles**: Open dark canvas where little fingers and whole-palm touches leave glowing rainbow stardust and gentle chime cascades.
-5. **Sleepy Moon Lullaby**: Deep starry night with a sleeping crescent moon and delicate music box lullaby (*Twinkle Twinkle*).
 
-### ⏱️ TEAR-FREE PLAY TIMER
-Set a 3-, 5-, or 10-minute session limit. When time is up, the app smoothly transitions into the calming Sleepy Moon lullaby to naturally transition your child away from the screen without tantrums.
+1. Bubble Pop and Shapes:
+Floating translucent bubbles with glowing stars and hearts. Tapping pops them into confetti; empty space spawns new bubbles. Turn the Crown to inflate a giant bubble!
 
-### 🔒 100% PRIVATE & CHILD-SAFE
-* Zero data collection
-* No third-party tracking or analytics
-* No advertisements
-* No in-app purchases or subscriptions
-* Works 100% offline
+2. Animal Friends:
+Bouncy Puppy, Kitty, Duck, Cow, Frog, and Bear. Features joyful bouncing animations, authentic animal sounds, and gentle spoken words ("Duck! Quack quack!") to encourage early speech mimicry.
+
+3. Sound Garden (Pentatonic Chimes):
+Glowing vertical chime bars tuned to the Pentatonic Scale (C, D, E, G, A, C5). Consonant and harmonious -- every random toddler tap sounds like a beautiful melody!
+
+4. Magic Sparkles:
+Open dark canvas where little fingers and whole-palm touches leave sparkling rainbow stardust trails with twinkling chimes.
+
+5. Sleepy Moon Lullaby:
+Deep starry night with a smiling crescent moon and a soothing music-box lullaby (Twinkle Twinkle motif). Automatically activates when the play timer ends to signal rest time.
+
+
+100% PRIVATE AND CHILD-SAFE
+- Zero data collection
+- No third-party tracking or analytics
+- No advertisements
+- No in-app purchases or subscriptions
+- Works 100% offline -- no internet required
 
 ---
 
