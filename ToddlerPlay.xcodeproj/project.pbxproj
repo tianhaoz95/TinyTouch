@@ -7,6 +7,7 @@
 	objects = {
 /* Begin PBXBuildFile section */
 		001700170017001700170017 /* ToddlerPlay.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 000D000D000D000D000D000D /* ToddlerPlay.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		002900290029002900290029 /* TinyTouchWidget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 002200220022002200220022 /* TinyTouchWidget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		000000000000000000000202 /* IOSHapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000201 /* IOSHapticsManager.swift */; };
 		000000000000000000000204 /* IOSSettingsSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000203 /* IOSSettingsSyncManager.swift */; };
 		000000000000000000000206 /* IOSSoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000205 /* IOSSoundManager.swift */; };
@@ -67,6 +68,7 @@
 		000000000000000000000274 /* sparkle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000273 /* sparkle.wav */; };
 		000000000000000000000276 /* unlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000275 /* unlock.wav */; };
 		000000000000000000000278 /* woof.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000277 /* woof.wav */; };
+		00000000000000000000027A /* TinyTouchWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000279 /* TinyTouchWidget.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +78,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 000300030003000300030003;
 			remoteInfo = ToddlerPlay;
+		};
+		002700270027002700270027 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 000100010001000100010001 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 002100210021002100210021;
+			remoteInfo = TinyTouchWidget;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -91,11 +100,23 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		002600260026002600260026 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				002900290029002900290029 /* TinyTouchWidget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		000C000C000C000C000C000C /* TinyTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TinyTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		000D000D000D000D000D000D /* ToddlerPlay.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToddlerPlay.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		002200220022002200220022 /* TinyTouchWidget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TinyTouchWidget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		000000000000000000000201 /* IOSHapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TinyTouchiOS/Sources/Services/IOSHapticsManager.swift"; sourceTree = "<group>"; };
 		000000000000000000000203 /* IOSSettingsSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TinyTouchiOS/Sources/Services/IOSSettingsSyncManager.swift"; sourceTree = "<group>"; };
 		000000000000000000000205 /* IOSSoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TinyTouchiOS/Sources/Services/IOSSoundManager.swift"; sourceTree = "<group>"; };
@@ -156,6 +177,8 @@
 		000000000000000000000273 /* sparkle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/sparkle.wav"; sourceTree = "<group>"; };
 		000000000000000000000275 /* unlock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/unlock.wav"; sourceTree = "<group>"; };
 		000000000000000000000277 /* woof.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/woof.wav"; sourceTree = "<group>"; };
+		000000000000000000000279 /* TinyTouchWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TinyTouchWidget/TinyTouchWidget.swift"; sourceTree = "<group>"; };
+		002F002F002F002F002F002F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TinyTouchWidget/Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +194,12 @@
 			files = ();
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		002400240024002400240024 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = ();
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -179,6 +208,7 @@
 			children = (
 				000500050005000500050005 /* TinyTouchiOS */,
 				000600060006000600060006 /* ToddlerPlay */,
+				002D002D002D002D002D002D /* TinyTouchWidget */,
 				000700070007000700070007 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -289,11 +319,21 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		002D002D002D002D002D002D /* TinyTouchWidget */ = {
+			isa = PBXGroup;
+			children = (
+				000000000000000000000279 /* TinyTouchWidget.swift */,
+				002F002F002F002F002F002F /* Info.plist */,
+			);
+			name = TinyTouchWidget;
+			sourceTree = "<group>";
+		};
 		000700070007000700070007 /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				000C000C000C000C000C000C /* TinyTouch.app */,
 				000D000D000D000D000D000D /* ToddlerPlay.app */,
+				002200220022002200220022 /* TinyTouchWidget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -326,13 +366,31 @@
 				001200120012001200120012 /* Sources */,
 				001300130013001300130013 /* Frameworks */,
 				001400140014001400140014 /* Resources */,
+				002600260026002600260026 /* Embed App Extensions */,
 			);
 			buildRules = ();
-			dependencies = ();
+			dependencies = (
+				002800280028002800280028 /* PBXTargetDependency */,
+			);
 			name = ToddlerPlay;
 			productName = ToddlerPlay;
 			productReference = 000D000D000D000D000D000D /* ToddlerPlay.app */;
 			productType = "com.apple.product-type.application";
+		};
+		002100210021002100210021 /* TinyTouchWidget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 002A002A002A002A002A002A /* Build configuration list for PBXNativeTarget "TinyTouchWidget" */;
+			buildPhases = (
+				002300230023002300230023 /* Sources */,
+				002400240024002400240024 /* Frameworks */,
+				002500250025002500250025 /* Resources */,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = TinyTouchWidget;
+			productName = TinyTouchWidget;
+			productReference = 002200220022002200220022 /* TinyTouchWidget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -348,6 +406,11 @@
 					};
 					000300030003000300030003 = {
 						CreatedOnToolsVersion = 15.0;
+					};
+					002100210021002100210021 = {
+						CreatedOnToolsVersion = 15.0;
+						DevelopmentTeam = 6522A974B3;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -366,6 +429,7 @@
 			targets = (
 				000200020002000200020002 /* TinyTouch */,
 				000300030003000300030003 /* ToddlerPlay */,
+				002100210021002100210021 /* TinyTouchWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -421,6 +485,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		002500250025002500250025 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -462,6 +533,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		002300230023002300230023 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				00000000000000000000027A /* TinyTouchWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -469,6 +548,11 @@
 			isa = PBXTargetDependency;
 			target = 000300030003000300030003 /* ToddlerPlay */;
 			targetProxy = 001500150015001500150015 /* PBXContainerItemProxy */;
+		};
+		002800280028002800280028 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 002100210021002100210021 /* TinyTouchWidget */;
+			targetProxy = 002700270027002700270027 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -529,9 +613,9 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.1;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				INFOPLIST_KEY_CFBundleShortVersionString = 1.1;
-				INFOPLIST_KEY_CFBundleVersion = 2;
+				INFOPLIST_KEY_CFBundleVersion = 3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -562,9 +646,9 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				MARKETING_VERSION = 1.1;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				INFOPLIST_KEY_CFBundleShortVersionString = 1.1;
-				INFOPLIST_KEY_CFBundleVersion = 2;
+				INFOPLIST_KEY_CFBundleVersion = 3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -595,9 +679,9 @@
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				INFOPLIST_KEY_WKBackgroundModes = "self-care";
 				MARKETING_VERSION = 1.1;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				INFOPLIST_KEY_CFBundleShortVersionString = 1.1;
-				INFOPLIST_KEY_CFBundleVersion = 2;
+				INFOPLIST_KEY_CFBundleVersion = 3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -630,14 +714,75 @@
 				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				INFOPLIST_KEY_WKBackgroundModes = "self-care";
 				MARKETING_VERSION = 1.1;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				INFOPLIST_KEY_CFBundleShortVersionString = 1.1;
-				INFOPLIST_KEY_CFBundleVersion = 2;
+				INFOPLIST_KEY_CFBundleVersion = 3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.tianhaoz.tinytouch.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
+		002B002B002B002B002B002B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6522A974B3;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TinyTouchWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "TinyTouch";
+				INFOPLIST_KEY_NSExtension_NSExtensionPointIdentifier = "com.apple.widgetkit-extension";
+				MARKETING_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 3;
+				INFOPLIST_KEY_CFBundleShortVersionString = 1.1;
+				INFOPLIST_KEY_CFBundleVersion = 3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tianhaoz.tinytouch.watchkitapp.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		002C002C002C002C002C002C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6522A974B3;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TinyTouchWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "TinyTouch";
+				INFOPLIST_KEY_NSExtension_NSExtensionPointIdentifier = "com.apple.widgetkit-extension";
+				MARKETING_VERSION = 1.1;
+				CURRENT_PROJECT_VERSION = 3;
+				INFOPLIST_KEY_CFBundleShortVersionString = 1.1;
+				INFOPLIST_KEY_CFBundleVersion = 3;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.tianhaoz.tinytouch.watchkitapp.widget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -674,6 +819,15 @@
 			buildConfigurations = (
 				001F001F001F001F001F001F /* Debug */,
 				002000200020002000200020 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		002A002A002A002A002A002A /* Build configuration list for PBXNativeTarget "TinyTouchWidget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				002B002B002B002B002B002B /* Debug */,
+				002C002C002C002C002C002C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

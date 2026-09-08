@@ -10,6 +10,7 @@ final class AppState: ObservableObject {
             } else if oldValue == .lullaby {
                 SoundManager.shared.stopLullaby()
             }
+            WatchConnectivityManager.shared.sendStatusUpdate()
         }
     }
     
@@ -43,6 +44,27 @@ final class AppState: ObservableObject {
     private var timerCancellable: AnyCancellable?
     
     init() {
+        let defaults = UserDefaults.standard
+        if let savedMode = defaults.string(forKey: "tinyTouch_mode"), let mode = GameMode(rawValue: savedMode) {
+            currentMode = mode
+        }
+        if defaults.object(forKey: "tinyTouch_sound") != nil {
+            soundEnabled = defaults.bool(forKey: "tinyTouch_sound")
+        }
+        if defaults.object(forKey: "tinyTouch_voice") != nil {
+            voiceEnabled = defaults.bool(forKey: "tinyTouch_voice")
+        }
+        if defaults.object(forKey: "tinyTouch_haptics") != nil {
+            hapticsEnabled = defaults.bool(forKey: "tinyTouch_haptics")
+        }
+        if defaults.object(forKey: "tinyTouch_lowStim") != nil {
+            lowStimulation = defaults.bool(forKey: "tinyTouch_lowStim")
+        }
+        if defaults.object(forKey: "tinyTouch_holdDuration") != nil {
+            let dur = defaults.double(forKey: "tinyTouch_holdDuration")
+            if dur > 0 { lockHoldDuration = dur }
+        }
+        
         // Support command-line flags for UI testing & screenshots
         if CommandLine.arguments.contains("--mode-animals") {
             currentMode = .animals
@@ -66,8 +88,7 @@ final class AppState: ObservableObject {
         }
         
         startSession()
-        WatchConnectivityManager.shared.appState = self
-        WatchConnectivityManager.shared.sendStatusUpdate()
+        WatchConnectivityManager.shared.attachAppState(self)
     }
     
     func startSession() {

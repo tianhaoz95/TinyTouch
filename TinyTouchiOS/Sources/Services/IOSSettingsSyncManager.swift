@@ -12,6 +12,9 @@ final class IOSSettingsSyncManager: NSObject, ObservableObject, WCSessionDelegat
     @Published var isWatchAppInstalled: Bool = false
     @Published var isReachable: Bool = false
     @Published var lastSyncTime: Date? = nil
+    @Published var lastSyncConfirmed: Bool = false
+    @Published var syncStatusText: String = "Ready"
+    @Published var isSyncing: Bool = false
     
     // Remote Settings State (Persisted on iPhone)
     @Published var selectedMode: String = "bubbles" {
@@ -134,6 +137,19 @@ final class IOSSettingsSyncManager: NSObject, ObservableObject, WCSessionDelegat
         }
     }
     
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        DispatchQueue.main.async {
+            self.processWatchTelemetry(message)
+            replyHandler(["status": "acknowledged"])
+        }
+    }
+    
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
+        DispatchQueue.main.async {
+            self.processWatchTelemetry(userInfo)
+        }
+    }
+    
     private func processWatchTelemetry(_ dict: [String: Any]) {
         if let mode = dict["currentMode"] as? String {
             self.watchCurrentMode = mode
@@ -157,10 +173,16 @@ final class IOSSettingsSyncManager: NSObject, ObservableObject, WCSessionDelegat
         sendSettingsToWatch()
     }
     
-    func sendSettingsToWatch(extraPayload: [String: Any]? = nil) {
-        guard WCSession.isSupported() else { return }
+    func sendSettingsToWatch(extraPayload: [String: Any]? = nil, completion: ((Bool, String) -> Void)? = nil) {
+        guard WCSession.isSupported() else {
+            completion?(false, "WatchConnectivity is not supported on this device.")
+            return
+        }
         let session = WCSession.default
-        guard session.activationState == .activated else { return }
+        
+        if session.activationState != .activated {
+            session.activate()
+        }
         
         var payload: [String: Any] = [
             "currentMode": selectedMode,
@@ -179,19 +201,51 @@ final class IOSSettingsSyncManager: NSObject, ObservableObject, WCSessionDelegat
             }
         }
         
-        // 1. Immediate message if watch app is currently open and reachable
-        if session.isReachable {
-            session.sendMessage(payload, replyHandler: nil, errorHandler: nil)
-        }
-        
-        // 2. Guaranteed background context update for when watch app opens next
+        // 1. Guaranteed background context update for next watch launch
         do {
             try session.updateApplicationContext(payload)
+        } catch {
+            print("Notice: application context update queued/ignored: \(error.localizedDescription)")
+        }
+        
+        // 2. Transfer user info for background delivery
+        session.transferUserInfo(payload)
+        
+        // 3. Immediate interactive message if watch app is currently reachable
+        if session.isReachable {
+            session.sendMessage(payload, replyHandler: { [weak self] reply in
+                DispatchQueue.main.async {
+                    self?.lastSyncTime = Date()
+                    self?.lastSyncConfirmed = true
+                    self?.syncStatusText = "Live Synced"
+                    if let mode = reply["currentMode"] as? String {
+                        self?.watchCurrentMode = mode
+                    }
+                    completion?(true, "Settings applied instantly to active Apple Watch!")
+                }
+            }, errorHandler: { [weak self] error in
+                DispatchQueue.main.async {
+                    self?.lastSyncTime = Date()
+                    self?.lastSyncConfirmed = false
+                    self?.syncStatusText = "Queued in Background"
+                    completion?(true, "Saved! Will apply automatically the moment TinyTouch is opened on your watch.")
+                }
+            })
+        } else {
             DispatchQueue.main.async {
                 self.lastSyncTime = Date()
+                self.lastSyncConfirmed = false
+                self.syncStatusText = "Queued in Background"
+                completion?(true, "Settings saved! Apple Watch will sync automatically when TinyTouch is opened on wrist.")
             }
-        } catch {
-            print("Failed to update application context: \(error)")
+        }
+    }
+    
+    func manualSync(completion: @escaping (Bool, String) -> Void) {
+        isSyncing = true
+        sendSettingsToWatch { [weak self] success, message in
+            self?.isSyncing = false
+            completion(success, message)
         }
     }
     

@@ -20,6 +20,20 @@
                ReferencedContainer = "container:ToddlerPlay.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "002100210021002100210021"
+               BuildableName = "TinyTouchWidget.appex"
+               BlueprintName = "TinyTouchWidget"
+               ReferencedContainer = "container:ToddlerPlay.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

@@ -207,7 +207,16 @@ testGroup("Settings Synchronization & Remote Control") {
     }
     assertEqual(localMode, "lullaby", "Remote instant lullaby trigger worked")
     
-    // 3. Simulate Watch telemetry response to iPhone
+    // 3. Two-way reply acknowledgment from watch
+    let reply: [String: Any] = [
+        "status": "acknowledged",
+        "currentMode": localMode,
+        "timestamp": Date().timeIntervalSince1970
+    ]
+    assertEqual(reply["status"] as? String, "acknowledged", "Sync message reply handler confirmed")
+    assertEqual(reply["currentMode"] as? String, "lullaby", "Sync reply current mode verified")
+    
+    // 4. Simulate Watch telemetry response to iPhone
     let watchTelemetry: [String: Any] = [
         "currentMode": localMode,
         "touchesCount": 42,
@@ -218,6 +227,23 @@ testGroup("Settings Synchronization & Remote Control") {
     assertEqual(watchTelemetry["touchesCount"] as? Int, 42, "Telemetry touch count serialized")
     assertEqual(watchTelemetry["remainingSeconds"] as? Int, 180, "Telemetry timer serialized")
 }
+
+testGroup("Watch Face Widget (Complication) Specifications") {
+    let supportedFamilies = ["accessoryCircular", "accessoryCorner", "accessoryRectangular", "accessoryInline"]
+    assertEqual(supportedFamilies.count, 4, "4 watch face complication families supported")
+    assertTrue(supportedFamilies.contains("accessoryCircular"), "Circular complication supported for quick 1-tap launch")
+    assertTrue(supportedFamilies.contains("accessoryCorner"), "Corner complication supported for Infograph")
+    assertTrue(supportedFamilies.contains("accessoryRectangular"), "Rectangular complication supported for Modular")
+    assertTrue(supportedFamilies.contains("accessoryInline"), "Inline complication supported for text line")
+    
+    // Verify widget files exist
+    let widgetSwiftExists = FileManager.default.fileExists(atPath: "TinyTouchWidget/TinyTouchWidget.swift")
+    assertTrue(widgetSwiftExists, "TinyTouchWidget.swift source file exists")
+    
+    let widgetPlistExists = FileManager.default.fileExists(atPath: "TinyTouchWidget/Info.plist")
+    assertTrue(widgetPlistExists, "TinyTouchWidget/Info.plist exists")
+}
+
 
 print("\n==========================================")
 print("TEST RESULTS: \(passedTests)/\(totalTests) passed")

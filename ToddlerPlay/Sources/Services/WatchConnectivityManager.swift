@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 import WatchConnectivity
 
 /// Manages bidirectional synchronization between the Apple Watch app and the iPhone companion app.
@@ -8,6 +9,9 @@ final class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDeleg
     weak var appState: AppState?
     
     @Published var isReachable: Bool = false
+    @Published var lastSyncReceivedAt: Date? = nil
+    
+    private var pendingSettings: [String: Any]? = nil
     
     private override init() {
         super.init()
@@ -21,14 +25,36 @@ final class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDeleg
         session.activate()
     }
     
+    /// Called when AppState initializes to link the view model with connectivity
+    func attachAppState(_ state: AppState) {
+        self.appState = state
+        
+        // 1. Check if we received settings before AppState was attached
+        if let pending = pendingSettings {
+            applySettings(pending)
+            pendingSettings = nil
+        } else {
+            // 2. Check receivedApplicationContext from WCSession
+            let context = WCSession.default.receivedApplicationContext
+            if !context.isEmpty {
+                applySettings(context)
+            }
+        }
+        
+        // 3. Immediately report initial watch state to companion app
+        sendStatusUpdate()
+    }
+    
     // MARK: - WCSessionDelegate (watchOS)
     
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         DispatchQueue.main.async {
             self.isReachable = session.isReachable
             if activationState == .activated {
-                // Check if there's any existing application context from phone
-                self.applySettings(session.receivedApplicationContext)
+                let context = session.receivedApplicationContext
+                if !context.isEmpty {
+                    self.applySettings(context)
+                }
             }
         }
     }
@@ -42,32 +68,99 @@ final class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDeleg
         }
     }
     
-    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+    // Handler 1: Standard message WITHOUT reply handler
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         DispatchQueue.main.async {
-            self.applySettings(applicationContext)
+            self.applySettings(message)
+            self.sendStatusUpdate()
         }
     }
     
+    // Handler 2: Message WITH reply handler
     func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         DispatchQueue.main.async {
             self.applySettings(message)
-            replyHandler(["status": "acknowledged"])
+            self.sendStatusUpdate()
+            replyHandler([
+                "status": "acknowledged",
+                "currentMode": self.appState?.currentMode.rawValue ?? "bubbles",
+                "timestamp": Date().timeIntervalSince1970
+            ])
+        }
+    }
+    
+    // Handler 3: Background Application Context
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+        DispatchQueue.main.async {
+            self.applySettings(applicationContext)
+            self.sendStatusUpdate()
+        }
+    }
+    
+    // Handler 4: Queued User Info (guaranteed delivery)
+    func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any] = [:]) {
+        DispatchQueue.main.async {
+            self.applySettings(userInfo)
+            self.sendStatusUpdate()
         }
     }
     
     // MARK: - Applying incoming settings from iPhone
     
     func applySettings(_ dict: [String: Any]) {
-        guard let appState = self.appState else { return }
+        self.lastSyncReceivedAt = Date()
         
-        // 1. Game mode change
-        if let modeRaw = dict["currentMode"] as? String, let mode = GameMode(rawValue: modeRaw) {
-            if appState.currentMode != mode {
-                appState.currentMode = mode
+        // Persist to UserDefaults so watch remembers even across app restarts
+        let defaults = UserDefaults.standard
+        if let modeRaw = dict["currentMode"] as? String {
+            defaults.set(modeRaw, forKey: "tinyTouch_mode")
+        }
+        if let sound = dict["soundEnabled"] as? Bool {
+            defaults.set(sound, forKey: "tinyTouch_sound")
+        }
+        if let voice = dict["voiceEnabled"] as? Bool {
+            defaults.set(voice, forKey: "tinyTouch_voice")
+        }
+        if let haptics = dict["hapticsEnabled"] as? Bool {
+            defaults.set(haptics, forKey: "tinyTouch_haptics")
+        }
+        if let lowStim = dict["lowStimulation"] as? Bool {
+            defaults.set(lowStim, forKey: "tinyTouch_lowStim")
+        }
+        if let holdDuration = dict["lockHoldDuration"] as? Double {
+            defaults.set(holdDuration, forKey: "tinyTouch_holdDuration")
+        }
+        if let timerMinutes = dict["timerMinutes"] as? Int {
+            defaults.set(timerMinutes, forKey: "tinyTouch_timerMinutes")
+        }
+        
+        guard let appState = self.appState else {
+            // AppState not yet initialized; queue settings for when it attaches
+            self.pendingSettings = dict
+            return
+        }
+        
+        // 1. Remote action triggers (e.g. Bedtime Lullaby)
+        if let action = dict["action"] as? String {
+            if action == "triggerLullaby" {
+                withAnimation(.easeInOut(duration: 1.0)) {
+                    appState.currentMode = .lullaby
+                }
+                HapticsManager.shared.playGentlePulse()
             }
         }
         
-        // 2. Sensory toggles
+        // 2. Game mode switch
+        if let modeRaw = dict["currentMode"] as? String, let mode = GameMode(rawValue: modeRaw) {
+            if appState.currentMode != mode {
+                withAnimation(.easeInOut(duration: 0.6)) {
+                    appState.currentMode = mode
+                }
+                HapticsManager.shared.playGentlePulse()
+            }
+        }
+        
+        // 3. Sensory toggles
         if let sound = dict["soundEnabled"] as? Bool {
             appState.soundEnabled = sound
         }
@@ -81,16 +174,9 @@ final class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDeleg
             appState.lowStimulation = lowStim
         }
         
-        // 3. Timer change
+        // 4. Timer change
         if let timerMinutes = dict["timerMinutes"] as? Int {
             appState.setPlayTimer(minutes: timerMinutes)
-        }
-        
-        // 4. Remote actions
-        if let action = dict["action"] as? String {
-            if action == "triggerLullaby" {
-                appState.currentMode = .lullaby
-            }
         }
         
         // 5. Lock hold duration
@@ -105,7 +191,6 @@ final class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDeleg
         guard WCSession.isSupported() else { return }
         let session = WCSession.default
         guard session.activationState == .activated else { return }
-        
         guard let appState = self.appState else { return }
         
         let telemetry: [String: Any] = [
@@ -117,19 +202,23 @@ final class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDeleg
             "voiceEnabled": appState.voiceEnabled,
             "hapticsEnabled": appState.hapticsEnabled,
             "lowStimulation": appState.lowStimulation,
+            "lockHoldDuration": appState.lockHoldDuration,
             "timestamp": Date().timeIntervalSince1970
         ]
         
-        // If reachable, send immediate message
+        // 1. If reachable, send immediate message
         if session.isReachable {
             session.sendMessage(telemetry, replyHandler: nil, errorHandler: nil)
         }
         
-        // Also update application context so iPhone gets it even if backgrounded
+        // 2. Update application context
         do {
             try session.updateApplicationContext(telemetry)
         } catch {
-            // Context update may fail if identical, which is fine
+            // Ignored if duplicate
         }
+        
+        // 3. Transfer user info for background delivery
+        session.transferUserInfo(telemetry)
     }
 }

@@ -6,6 +6,8 @@ import SwiftUI
 struct ParentDashboardView: View {
     @StateObject private var syncManager = IOSSettingsSyncManager.shared
     @State private var showingSyncAlert = false
+    @State private var syncAlertTitle = "Settings Synced"
+    @State private var syncAlertMessage = ""
     
     let gameModes = [
         ("bubbles", "Bubble Pop", "circle.hexagongrid.circle.fill", Color.pink),
@@ -42,24 +44,35 @@ struct ParentDashboardView: View {
             .navigationTitle("TinyTouch Remote")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        syncManager.sendSettingsToWatch()
-                        IOSHapticsManager.shared.playSuccess()
-                        showingSyncAlert = true
-                    }) {
+                    Button(action: triggerManualSync) {
                         HStack(spacing: 4) {
-                            Image(systemName: "arrow.triangle.2.circlepath")
-                            Text("Sync")
+                            if syncManager.isSyncing {
+                                ProgressView()
+                                    .scaleEffect(0.8)
+                            } else {
+                                Image(systemName: "arrow.triangle.2.circlepath")
+                            }
+                            Text(syncManager.isSyncing ? "Syncing..." : "Sync")
                         }
                         .font(.footnote.weight(.semibold))
                     }
+                    .disabled(syncManager.isSyncing)
                 }
             }
-            .alert("Settings Synced to Watch", isPresented: $showingSyncAlert) {
+            .alert(syncAlertTitle, isPresented: $showingSyncAlert) {
                 Button("OK", role: .cancel) {}
             } message: {
-                Text("Your game preferences and timer settings have been pushed to your Apple Watch.")
+                Text(syncAlertMessage)
             }
+        }
+    }
+    
+    private func triggerManualSync() {
+        syncManager.manualSync { success, message in
+            syncAlertTitle = success ? "Watch Sync Status" : "Sync Notice"
+            syncAlertMessage = message
+            IOSHapticsManager.shared.playSuccess()
+            showingSyncAlert = true
         }
     }
     
@@ -99,6 +112,26 @@ struct ParentDashboardView: View {
                 }
                 
                 Spacer()
+                
+                Button(action: triggerManualSync) {
+                    HStack(spacing: 4) {
+                        if syncManager.isSyncing {
+                            ProgressView()
+                                .scaleEffect(0.7)
+                        } else {
+                            Image(systemName: "arrow.triangle.2.circlepath")
+                                .font(.system(size: 11, weight: .bold))
+                        }
+                        Text(syncManager.isSyncing ? "Syncing..." : "Sync Now")
+                            .font(.system(size: 12, weight: .semibold))
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 6)
+                    .background(Color.pink.opacity(0.12))
+                    .foregroundColor(.pink)
+                    .cornerRadius(12)
+                }
+                .disabled(syncManager.isSyncing)
             }
             
             Divider()
