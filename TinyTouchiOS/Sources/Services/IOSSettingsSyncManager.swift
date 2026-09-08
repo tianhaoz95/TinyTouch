@@ -201,17 +201,14 @@ final class IOSSettingsSyncManager: NSObject, ObservableObject, WCSessionDelegat
             }
         }
         
-        // 1. Guaranteed background context update for next watch launch
+        // 1. Keep application context updated so watch immediately reflects settings when launched
         do {
             try session.updateApplicationContext(payload)
         } catch {
             print("Notice: application context update queued/ignored: \(error.localizedDescription)")
         }
         
-        // 2. Transfer user info for background delivery
-        session.transferUserInfo(payload)
-        
-        // 3. Immediate interactive message if watch app is currently reachable
+        // 2. Immediate interactive message if watch app is currently reachable
         if session.isReachable {
             session.sendMessage(payload, replyHandler: { [weak self] reply in
                 DispatchQueue.main.async {
@@ -224,14 +221,18 @@ final class IOSSettingsSyncManager: NSObject, ObservableObject, WCSessionDelegat
                     completion?(true, "Settings applied instantly to active Apple Watch!")
                 }
             }, errorHandler: { [weak self] error in
+                // If interactive message failed, queue user info for guaranteed delivery
+                session.transferUserInfo(payload)
                 DispatchQueue.main.async {
                     self?.lastSyncTime = Date()
                     self?.lastSyncConfirmed = false
                     self?.syncStatusText = "Queued in Background"
-                    completion?(true, "Saved! Will apply automatically the moment TinyTouch is opened on your watch.")
+                    completion?(true, "Saved! Will apply automatically when TinyTouch is opened on your watch.")
                 }
             })
         } else {
+            // Watch is not active/reachable right now; queue for delivery
+            session.transferUserInfo(payload)
             DispatchQueue.main.async {
                 self.lastSyncTime = Date()
                 self.lastSyncConfirmed = false
@@ -251,20 +252,17 @@ final class IOSSettingsSyncManager: NSObject, ObservableObject, WCSessionDelegat
     
     func switchWatchMode(to mode: String) {
         selectedMode = mode
-        sendSettingsToWatch(extraPayload: ["currentMode": mode])
     }
     
     func triggerLullabyNow() {
         selectedMode = "lullaby"
         sendSettingsToWatch(extraPayload: [
-            "currentMode": "lullaby",
             "action": "triggerLullaby"
         ])
     }
     
     func setWatchTimer(minutes: Int) {
         timerMinutes = minutes
-        sendSettingsToWatch(extraPayload: ["timerMinutes": minutes])
     }
     
     var formattedWatchRemainingTime: String {

@@ -140,48 +140,54 @@ final class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDeleg
             return
         }
         
-        // 1. Remote action triggers (e.g. Bedtime Lullaby)
-        if let action = dict["action"] as? String {
-            if action == "triggerLullaby" {
+        DispatchQueue.main.async {
+            // 1. Remote action triggers (e.g. Bedtime Lullaby)
+            if let action = dict["action"] as? String, action == "triggerLullaby" {
                 withAnimation(.easeInOut(duration: 1.0)) {
                     appState.currentMode = .lullaby
                 }
-                HapticsManager.shared.playGentlePulse()
-            }
-        }
-        
-        // 2. Game mode switch
-        if let modeRaw = dict["currentMode"] as? String, let mode = GameMode(rawValue: modeRaw) {
-            if appState.currentMode != mode {
-                withAnimation(.easeInOut(duration: 0.6)) {
-                    appState.currentMode = mode
+                if appState.isParentMenuOpen {
+                    appState.isParentMenuOpen = false
                 }
                 HapticsManager.shared.playGentlePulse()
             }
-        }
-        
-        // 3. Sensory toggles
-        if let sound = dict["soundEnabled"] as? Bool {
-            appState.soundEnabled = sound
-        }
-        if let voice = dict["voiceEnabled"] as? Bool {
-            appState.voiceEnabled = voice
-        }
-        if let haptics = dict["hapticsEnabled"] as? Bool {
-            appState.hapticsEnabled = haptics
-        }
-        if let lowStim = dict["lowStimulation"] as? Bool {
-            appState.lowStimulation = lowStim
-        }
-        
-        // 4. Timer change
-        if let timerMinutes = dict["timerMinutes"] as? Int {
-            appState.setPlayTimer(minutes: timerMinutes)
-        }
-        
-        // 5. Lock hold duration
-        if let holdDuration = dict["lockHoldDuration"] as? Double {
-            appState.lockHoldDuration = holdDuration
+            
+            // 2. Game mode switch
+            if let modeRaw = dict["currentMode"] as? String, let mode = GameMode(rawValue: modeRaw) {
+                if appState.currentMode != mode {
+                    withAnimation(.easeInOut(duration: 0.6)) {
+                        appState.currentMode = mode
+                    }
+                    HapticsManager.shared.playGentlePulse()
+                }
+                if appState.isParentMenuOpen {
+                    appState.isParentMenuOpen = false
+                }
+            }
+            
+            // 3. Sensory toggles
+            if let sound = dict["soundEnabled"] as? Bool {
+                appState.soundEnabled = sound
+            }
+            if let voice = dict["voiceEnabled"] as? Bool {
+                appState.voiceEnabled = voice
+            }
+            if let haptics = dict["hapticsEnabled"] as? Bool {
+                appState.hapticsEnabled = haptics
+            }
+            if let lowStim = dict["lowStimulation"] as? Bool {
+                appState.lowStimulation = lowStim
+            }
+            
+            // 4. Timer change
+            if let timerMinutes = dict["timerMinutes"] as? Int {
+                appState.setPlayTimer(minutes: timerMinutes)
+            }
+            
+            // 5. Lock hold duration
+            if let holdDuration = dict["lockHoldDuration"] as? Double {
+                appState.lockHoldDuration = holdDuration
+            }
         }
     }
     
@@ -206,19 +212,15 @@ final class WatchConnectivityManager: NSObject, ObservableObject, WCSessionDeleg
             "timestamp": Date().timeIntervalSince1970
         ]
         
-        // 1. If reachable, send immediate message
+        // 1. Immediate message if reachable
         if session.isReachable {
-            session.sendMessage(telemetry, replyHandler: nil, errorHandler: nil)
+            session.sendMessage(telemetry, replyHandler: nil) { [weak self] _ in
+                // On failure, update application context
+                try? WCSession.default.updateApplicationContext(telemetry)
+            }
+        } else {
+            // 2. Otherwise update application context for guaranteed delivery
+            try? session.updateApplicationContext(telemetry)
         }
-        
-        // 2. Update application context
-        do {
-            try session.updateApplicationContext(telemetry)
-        } catch {
-            // Ignored if duplicate
-        }
-        
-        // 3. Transfer user info for background delivery
-        session.transferUserInfo(telemetry)
     }
 }

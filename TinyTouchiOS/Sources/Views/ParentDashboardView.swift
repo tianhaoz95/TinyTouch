@@ -192,7 +192,7 @@ struct ParentDashboardView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
                     ForEach(gameModes, id: \.0) { mode in
-                        let isSelected = (syncManager.selectedMode == mode.0)
+                        let isSelected = (syncManager.selectedMode.lowercased() == mode.0.lowercased() || syncManager.watchCurrentMode.lowercased() == mode.0.lowercased())
                         Button(action: {
                             syncManager.switchWatchMode(to: mode.0)
                             IOSHapticsManager.shared.playTap()
@@ -442,13 +442,13 @@ struct ParentDashboardView: View {
     }
     
     private func friendlyModeName(_ raw: String) -> String {
-        switch raw {
-        case "bubbles": return "Bubble Pop 🫧"
-        case "animals": return "Animal Friends 🐶"
-        case "soundGarden": return "Sound Garden 🎵"
-        case "sparkles": return "Magic Sparkles ✨"
-        case "lullaby": return "Sleepy Moon 🌙"
-        default: return "Bubble Pop 🫧"
+        switch raw.lowercased() {
+        case "bubbles", "bubble", "bubblepop": return "Bubble Pop"
+        case "animals", "animal", "animalfriends": return "Animal Friends"
+        case "soundgarden", "xylophone", "chimes": return "Sound Garden"
+        case "sparkles", "sparkle", "magicsparkles": return "Magic Sparkles"
+        case "lullaby", "lullabies", "sleepymoon": return "Sleepy Moon"
+        default: return raw.capitalized
         }
     }
 }

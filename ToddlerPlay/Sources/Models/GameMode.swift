@@ -2,13 +2,39 @@ import SwiftUI
 
 /// Toddler play modes tailored for 18-month-old developmental stages
 enum GameMode: String, CaseIterable, Identifiable, Codable {
-    case bubbles = "Bubbles"
-    case animals = "Animals"
-    case soundGarden = "Xylophone"
-    case sparkles = "Sparkles"
-    case lullaby = "Lullaby"
+    case bubbles = "bubbles"
+    case animals = "animals"
+    case soundGarden = "soundGarden"
+    case sparkles = "sparkles"
+    case lullaby = "lullaby"
     
     var id: String { rawValue }
+    
+    /// Robust initializer accepting lowercase, camelCase, TitleCase, or legacy values (e.g. "Xylophone")
+    init?(rawValue: String) {
+        let normalized = rawValue.lowercased()
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: " ", with: "")
+            .replacingOccurrences(of: "_", with: "")
+        switch normalized {
+        case "bubbles", "bubble", "bubblepop":
+            self = .bubbles
+        case "animals", "animal", "animalfriends":
+            self = .animals
+        case "soundgarden", "sound", "xylophone", "chimes":
+            self = .soundGarden
+        case "sparkles", "sparkle", "magicsparkles":
+            self = .sparkles
+        case "lullaby", "lullabies", "sleepymoon", "sleep":
+            self = .lullaby
+        default:
+            return nil
+        }
+    }
+    
+    init?(from string: String) {
+        self.init(rawValue: string)
+    }
     
     var title: String {
         switch self {

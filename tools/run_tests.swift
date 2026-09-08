@@ -26,13 +26,38 @@ func testGroup(_ name: String, block: () -> Void) {
 // MARK: - Embedded Models for Testing
 
 enum GameMode: String, CaseIterable, Identifiable {
-    case bubbles = "Bubbles"
-    case animals = "Animals"
-    case soundGarden = "Xylophone"
-    case sparkles = "Sparkles"
-    case lullaby = "Lullaby"
+    case bubbles = "bubbles"
+    case animals = "animals"
+    case soundGarden = "soundGarden"
+    case sparkles = "sparkles"
+    case lullaby = "lullaby"
     
     var id: String { rawValue }
+    
+    init?(rawValue: String) {
+        let normalized = rawValue.lowercased()
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .replacingOccurrences(of: " ", with: "")
+            .replacingOccurrences(of: "_", with: "")
+        switch normalized {
+        case "bubbles", "bubble", "bubblepop":
+            self = .bubbles
+        case "animals", "animal", "animalfriends":
+            self = .animals
+        case "soundgarden", "sound", "xylophone", "chimes":
+            self = .soundGarden
+        case "sparkles", "sparkle", "magicsparkles":
+            self = .sparkles
+        case "lullaby", "lullabies", "sleepymoon", "sleep":
+            self = .lullaby
+        default:
+            return nil
+        }
+    }
+    
+    init?(from string: String) {
+        self.init(rawValue: string)
+    }
     
     var title: String {
         switch self {
@@ -199,6 +224,17 @@ testGroup("Settings Synchronization & Remote Control") {
     assertEqual(localHaptics, true, "Haptics setting parsed correctly")
     assertEqual(localLowStim, true, "Low stimulation setting parsed correctly")
     assertEqual(localHoldDuration, 5.0, "5s security hold duration parsed correctly")
+    
+    // Verify GameMode parses all incoming string variations from phone
+    assertEqual(GameMode(rawValue: "animals"), .animals, "Lowercase 'animals' parsed")
+    assertEqual(GameMode(rawValue: "Animals"), .animals, "Capitalized 'Animals' parsed")
+    assertEqual(GameMode(rawValue: "soundGarden"), .soundGarden, "CamelCase 'soundGarden' parsed")
+    assertEqual(GameMode(rawValue: "Xylophone"), .soundGarden, "Legacy 'Xylophone' parsed")
+    assertEqual(GameMode(rawValue: "Sound Garden"), .soundGarden, "Spaced 'Sound Garden' parsed")
+    assertEqual(GameMode(rawValue: "bubbles"), .bubbles, "Lowercase 'bubbles' parsed")
+    assertEqual(GameMode(rawValue: "sparkles"), .sparkles, "Lowercase 'sparkles' parsed")
+    assertEqual(GameMode(rawValue: "lullaby"), .lullaby, "Lowercase 'lullaby' parsed")
+    assertEqual(GameMode(rawValue: "Sleepy Moon"), .lullaby, "Spaced 'Sleepy Moon' parsed")
     
     // 2. Simulate remote trigger lullaby
     let triggerLullabyPayload: [String: Any] = ["action": "triggerLullaby"]
