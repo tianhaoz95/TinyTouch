@@ -40,6 +40,22 @@ def run_tests():
         sys.exit(res.returncode)
     print("✓ All unit tests passed cleanly.")
 
+def set_build_number(new_build):
+    print(f"\n==> Setting build number to {new_build}...")
+    proj_file = "tools/generate_project.py"
+    with open(proj_file, "r") as f:
+        content = f.read()
+    
+    content = re.sub(r'CURRENT_PROJECT_VERSION = \d+;', f'CURRENT_PROJECT_VERSION = {new_build};', content)
+    content = re.sub(r'INFOPLIST_KEY_CFBundleVersion = \d+;', f'INFOPLIST_KEY_CFBundleVersion = {new_build};', content)
+    
+    with open(proj_file, "w") as f:
+        f.write(content)
+        
+    subprocess.run(["python3", "tools/generate_project.py"], check=True)
+    print(f"✓ Build number set to {new_build}")
+    return new_build
+
 def bump_build_number():
     print("\n==> Checking and incrementing build number...")
     proj_file = "tools/generate_project.py"
@@ -67,6 +83,7 @@ def main():
     parser.add_argument("--upload", action="store_true", help="Automatically upload to TestFlight / App Store Connect")
     parser.add_argument("--validate-only", action="store_true", help="Validate with App Store Connect without submitting")
     parser.add_argument("--bump", action="store_true", help="Increment build number before archiving")
+    parser.add_argument("--build-number", type=int, help="Explicit build number to assign (useful in CI pipelines)")
     parser.add_argument("--no-test", action="store_true", help="Skip running unit tests")
     parser.add_argument("--team-id", type=str, default=DEFAULT_TEAM_ID, help=f"Apple Developer Team ID (default: {DEFAULT_TEAM_ID})")
     parser.add_argument("--api-key", type=str, help="App Store Connect API Key ID")
@@ -84,8 +101,10 @@ def main():
     if not args.no_test:
         run_tests()
         
-    # 2. Bump build number if requested
-    if args.bump:
+    # 2. Set or bump build number if requested
+    if args.build_number:
+        set_build_number(args.build_number)
+    elif args.bump:
         bump_build_number()
         
     archive_path = os.path.join(workspace_root, "build", "TinyTouch.xcarchive")
