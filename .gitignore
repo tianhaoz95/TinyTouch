@@ -10,3 +10,9 @@ build/
 # Temporary files
 *.swp
 *~
+
+# Fastlane & Environment
+.env
+fastlane/report.xml
+fastlane/Preview.html
+

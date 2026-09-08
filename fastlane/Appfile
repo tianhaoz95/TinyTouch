@@ -1,0 +1,22 @@
+# Appfile for TinyTouch
+
+# Primary iOS Companion Bundle Identifier
+app_identifier("com.tianhaoz.tinytouch")
+
+# Apple Developer Account Email / Apple ID
+apple_id(ENV["APPLE_ID"] || "info@hejitech.com")
+
+# Apple Developer Portal Team ID
+team_id("6522A974B3")
+
+# App Store Connect Team ID
+itc_team_id("6522A974B3")
+
+# For watchOS App and WidgetKit Complication targets
+for_lane :watch do
+  app_identifier("com.tianhaoz.tinytouch.watchkitapp")
+end
+
+for_lane :widget do
+  app_identifier("com.tianhaoz.tinytouch.watchkitapp.widget")
+end
