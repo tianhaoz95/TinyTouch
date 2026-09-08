@@ -403,9 +403,13 @@
 				TargetAttributes = {
 					000200020002000200020002 = {
 						CreatedOnToolsVersion = 15.0;
+						DevelopmentTeam = 6522A974B3;
+						ProvisioningStyle = Automatic;
 					};
 					000300030003000300030003 = {
 						CreatedOnToolsVersion = 15.0;
+						DevelopmentTeam = 6522A974B3;
+						ProvisioningStyle = Automatic;
 					};
 					002100210021002100210021 = {
 						CreatedOnToolsVersion = 15.0;

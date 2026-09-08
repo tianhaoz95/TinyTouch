@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-TinyTouch Automated App Store Connect Release Tool
+TinyTouch Automated TestFlight & App Store Connect Release Tool
 
 Usage examples:
-  1. Dry run (verify build & archive without uploading):
-     python3 tools/release.py --dry-run
+  1. Dry run (verify tests, build & archive without uploading):
+     ./tools/release.sh --dry-run
 
-  2. Upload using App Store Connect API Key:
-     python3 tools/release.py --api-key KEY_ID --api-issuer ISSUER_ID --p8-path /path/to/AuthKey.p8 --team-id YOUR_TEAM_ID
+  2. Automated TestFlight Upload (auto-increments build number and uploads):
+     ./tools/release.sh --upload --bump
 
-  3. Upload using Apple ID & App-Specific Password:
-     python3 tools/release.py --username your_apple_id@example.com --password abcd-efgh-ijkl-mnop --team-id YOUR_TEAM_ID
+  3. Automated Upload with App Store Connect API Key:
+     ./tools/release.sh --upload --bump --api-key KEY_ID --api-issuer ISSUER_ID --p8-path /path/to/AuthKey.p8
 """
 
 import argparse
@@ -18,6 +18,9 @@ import os
 import subprocess
 import sys
 import glob
+import re
+
+DEFAULT_TEAM_ID = "6522A974B3"
 
 def run_command(cmd, desc=None, check=True):
     if desc:
@@ -29,6 +32,14 @@ def run_command(cmd, desc=None, check=True):
         sys.exit(result.returncode)
     return result
 
+def run_tests():
+    print("\n==> Running Unit Tests Suite...")
+    res = subprocess.run(["swift", "tools/run_tests.swift"])
+    if res.returncode != 0:
+        print("\n[ERROR] Unit tests failed! Fix tests before releasing.")
+        sys.exit(res.returncode)
+    print("✓ All unit tests passed cleanly.")
+
 def bump_build_number():
     print("\n==> Checking and incrementing build number...")
     proj_file = "tools/generate_project.py"
@@ -36,7 +47,6 @@ def bump_build_number():
         content = f.read()
     
     # Extract current version
-    import re
     match = re.search(r'CURRENT_PROJECT_VERSION = (\d+);', content)
     curr_build = int(match.group(1)) if match else 1
     new_build = curr_build + 1
@@ -48,14 +58,17 @@ def bump_build_number():
         f.write(content)
         
     subprocess.run(["python3", "tools/generate_project.py"], check=True)
-    print(f"Build number bumped from {curr_build} to {new_build}")
+    print(f"✓ Build number bumped from {curr_build} to {new_build}")
+    return new_build
 
 def main():
-    parser = argparse.ArgumentParser(description="Automate App Store Connect archive, validation, and upload for TinyTouch")
+    parser = argparse.ArgumentParser(description="Automate App Store Connect & TestFlight release for TinyTouch")
     parser.add_argument("--dry-run", action="store_true", help="Build and archive without uploading")
+    parser.add_argument("--upload", action="store_true", help="Automatically upload to TestFlight / App Store Connect")
     parser.add_argument("--validate-only", action="store_true", help="Validate with App Store Connect without submitting")
     parser.add_argument("--bump", action="store_true", help="Increment build number before archiving")
-    parser.add_argument("--team-id", type=str, default="", help="Apple Developer Team ID (10 characters, e.g. ABCDE12345)")
+    parser.add_argument("--no-test", action="store_true", help="Skip running unit tests")
+    parser.add_argument("--team-id", type=str, default=DEFAULT_TEAM_ID, help=f"Apple Developer Team ID (default: {DEFAULT_TEAM_ID})")
     parser.add_argument("--api-key", type=str, help="App Store Connect API Key ID")
     parser.add_argument("--api-issuer", type=str, help="App Store Connect API Issuer ID")
     parser.add_argument("--p8-path", type=str, help="Path to AuthKey_<key_id>.p8 file")
@@ -67,6 +80,11 @@ def main():
     workspace_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     os.chdir(workspace_root)
     
+    # 1. Tests
+    if not args.no_test:
+        run_tests()
+        
+    # 2. Bump build number if requested
     if args.bump:
         bump_build_number()
         
@@ -74,7 +92,7 @@ def main():
     export_path = os.path.join(workspace_root, "build", "AppStoreExport")
     os.makedirs(os.path.join(workspace_root, "build"), exist_ok=True)
     
-    # 1. Archive
+    # 3. Create Archive
     archive_cmd = [
         "xcodebuild",
         "archive",
@@ -83,78 +101,74 @@ def main():
         "-archivePath", archive_path
     ]
     
-    if args.team_id:
-        archive_cmd.append(f"DEVELOPMENT_TEAM={args.team_id}")
-        archive_cmd.append("CODE_SIGN_STYLE=Automatic")
-    elif args.dry_run:
-        # For dry-run without signing certificates, disable code signing verification
+    if args.dry_run:
         archive_cmd.append("CODE_SIGNING_ALLOWED=NO")
+    else:
+        archive_cmd.extend([
+            f"DEVELOPMENT_TEAM={args.team_id}",
+            "CODE_SIGN_STYLE=Automatic",
+            "-allowProvisioningUpdates"
+        ])
         
-    run_command(archive_cmd, "Creating Universal iOS + watchOS Archive (.xcarchive)")
-    print(f"✓ Archive created at: {archive_path}")
+    run_command(archive_cmd, "Creating Universal iOS + watchOS + Widget Archive (.xcarchive)")
+    print(f"✓ Universal Archive created at: {archive_path}")
     
     if args.dry_run:
         print("\n=======================================================")
         print("🎉 DRY RUN SUCCESSFUL!")
-        print(f"Archive verified at: {archive_path}")
-        print("To upload to App Store Connect, run with your credentials:")
-        print("  python3 tools/release.py --api-key <KEY_ID> --api-issuer <ISSUER_ID> --team-id <TEAM_ID>")
-        print("  OR:")
-        print("  python3 tools/release.py --username <EMAIL> --password <APP_SPECIFIC_PWD> --team-id <TEAM_ID>")
+        print(f"Universal Archive verified at: {archive_path}")
+        print("To upload directly to TestFlight, run:")
+        print("  ./tools/release.sh --upload")
+        print("  OR with build bump:")
+        print("  ./tools/release.sh --upload --bump")
         print("=======================================================")
         return
 
-    # 2. Export Archive
+    # 4. Determine Upload / Export configuration
+    api_key = args.api_key or os.environ.get("APP_STORE_CONNECT_API_KEY_ID")
+    api_issuer = args.api_issuer or os.environ.get("APP_STORE_CONNECT_API_ISSUER_ID")
+    p8_path = args.p8_path or os.environ.get("APP_STORE_CONNECT_KEY_PATH")
+    
+    if api_key and not p8_path:
+        # Check standard search path
+        candidate = os.path.expanduser(f"~/.appstoreconnect/private_keys/AuthKey_{api_key}.p8")
+        if os.path.exists(candidate):
+            p8_path = candidate
+            
+    plist_name = "ExportOptionsUpload.plist" if args.upload else "ExportOptions.plist"
+    
     export_cmd = [
         "xcodebuild",
         "-exportArchive",
         "-archivePath", archive_path,
         "-exportPath", export_path,
-        "-exportOptionsPlist", "ExportOptions.plist",
+        "-exportOptionsPlist", plist_name,
         "-allowProvisioningUpdates"
     ]
-    run_command(export_cmd, "Exporting Package for App Store Connect Distribution")
     
-    # Locate package (.ipa or .pkg)
-    packages = glob.glob(os.path.join(export_path, "*.ipa")) + glob.glob(os.path.join(export_path, "*.pkg"))
-    if not packages:
-        print("[ERROR] No exported .ipa or .pkg found in " + export_path)
-        sys.exit(1)
+    if api_key and api_issuer and p8_path:
+        export_cmd.extend([
+            "-authenticationKeyPath", p8_path,
+            "-authenticationKeyID", api_key,
+            "-authenticationKeyIssuerID", api_issuer
+        ])
         
-    pkg_file = packages[0]
-    print(f"✓ App Store package ready: {pkg_file}")
+    desc_label = "Exporting & Uploading directly to TestFlight / App Store Connect" if args.upload else "Exporting Package for Distribution"
+    run_command(export_cmd, desc_label)
     
-    # 3. Authentication flags
-    auth_flags = []
-    if args.api_key and args.api_issuer:
-        auth_flags.extend(["--api-key", args.api_key, "--api-issuer", args.api_issuer])
-        if args.p8_path:
-            auth_flags.extend(["--p8-file-path", args.p8_path])
-    elif args.username and args.password:
-        auth_flags.extend(["--username", args.username, "--password", args.password])
+    if args.upload:
+        print("\n=======================================================")
+        print("🚀 SUCCESS! TinyTouch uploaded to TestFlight & App Store Connect!")
+        print("Processing typically takes 5-15 minutes on Apple servers.")
+        print("View build status & invite internal testers at:")
+        print("  https://appstoreconnect.apple.com/apps")
+        print("=======================================================")
     else:
-        print("\n[ERROR] Missing authentication. Provide either:")
-        print("  --api-key and --api-issuer (recommended)")
-        print("  OR --username and --password (app-specific password)")
-        sys.exit(1)
-        
-    # 4. Validate with App Store Connect
-    val_cmd = ["xcrun", "altool", "--validate-app", "-f", pkg_file] + auth_flags
-    run_command(val_cmd, "Validating package with App Store Connect...")
-    print("✓ Package validation passed with App Store Connect!")
-    
-    if args.validate_only:
-        print("Validation complete. Skipping upload as requested.")
-        return
-        
-    # 5. Upload to App Store Connect
-    upload_cmd = ["xcrun", "altool", "--upload-app", "-f", pkg_file] + auth_flags
-    run_command(upload_cmd, "Uploading package to App Store Connect...")
-    
-    print("\n=======================================================")
-    print("🚀 SUCCESS! TinyTouch uploaded to App Store Connect.")
-    print("Visit https://appstoreconnect.apple.com to select this build and submit for review!")
-    print("=======================================================")
+        # Locate package (.ipa or .pkg)
+        packages = glob.glob(os.path.join(export_path, "*.ipa")) + glob.glob(os.path.join(export_path, "*.pkg"))
+        if packages:
+            print(f"\n✓ App Store package exported to: {packages[0]}")
+            print("To upload this build to TestFlight, run with --upload")
 
 if __name__ == "__main__":
     main()
