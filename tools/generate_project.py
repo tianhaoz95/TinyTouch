@@ -73,6 +73,8 @@ def generate_project(source_files, resource_files):
             ft = "folder.assetcatalog"
         elif fname.endswith(".wav"):
             ft = "audio.wav"
+        elif fname.endswith(".xcprivacy"):
+            ft = "text.xml"
         else:
             ft = "text"
         pbx.append(f"\t\t{f_ref} /* {fname} */ = {{isa = PBXFileReference; lastKnownFileType = {ft}; path = \"{fpath}\"; sourceTree = \"<group>\"; }};")
@@ -287,6 +289,10 @@ def generate_project(source_files, resource_files):
     pbx.append("\t\t\t\tINFOPLIST_KEY_WKApplication = YES;")
     pbx.append("\t\t\t\tINFOPLIST_KEY_WKWatchOnly = YES;")
     pbx.append("\t\t\t\tINFOPLIST_KEY_WKBackgroundModes = \"self-care\";")
+    pbx.append("\t\t\t\tMARKETING_VERSION = 1.0.0;")
+    pbx.append("\t\t\t\tCURRENT_PROJECT_VERSION = 1;")
+    pbx.append("\t\t\t\tINFOPLIST_KEY_CFBundleShortVersionString = 1.0.0;")
+    pbx.append("\t\t\t\tINFOPLIST_KEY_CFBundleVersion = 1;")
     pbx.append("\t\t\t\tLD_RUNPATH_SEARCH_PATHS = (")
     pbx.append("\t\t\t\t\t\"$(inherited)\",")
     pbx.append("\t\t\t\t\t\"@executable_path/Frameworks\",")
@@ -320,6 +326,10 @@ def generate_project(source_files, resource_files):
     pbx.append("\t\t\t\tINFOPLIST_KEY_WKApplication = YES;")
     pbx.append("\t\t\t\tINFOPLIST_KEY_WKWatchOnly = YES;")
     pbx.append("\t\t\t\tINFOPLIST_KEY_WKBackgroundModes = \"self-care\";")
+    pbx.append("\t\t\t\tMARKETING_VERSION = 1.0.0;")
+    pbx.append("\t\t\t\tCURRENT_PROJECT_VERSION = 1;")
+    pbx.append("\t\t\t\tINFOPLIST_KEY_CFBundleShortVersionString = 1.0.0;")
+    pbx.append("\t\t\t\tINFOPLIST_KEY_CFBundleVersion = 1;")
     pbx.append("\t\t\t\tLD_RUNPATH_SEARCH_PATHS = (")
     pbx.append("\t\t\t\t\t\"$(inherited)\",")
     pbx.append("\t\t\t\t\t\"@executable_path/Frameworks\",")
@@ -464,6 +474,8 @@ if __name__ == "__main__":
     resources = []
     if os.path.exists("ToddlerPlay/Resources/Assets.xcassets"):
         resources.append("ToddlerPlay/Resources/Assets.xcassets")
+    if os.path.exists("ToddlerPlay/Resources/PrivacyInfo.xcprivacy"):
+        resources.append("ToddlerPlay/Resources/PrivacyInfo.xcprivacy")
     for root, _, files in os.walk("ToddlerPlay/Resources/Sounds"):
         for file in files:
             if file.endswith(".wav"):

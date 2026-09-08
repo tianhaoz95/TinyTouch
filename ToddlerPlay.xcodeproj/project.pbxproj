@@ -23,22 +23,23 @@
 		00000000000000000000011E /* ParentGuideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000011D /* ParentGuideView.swift */; };
 		000000000000000000000120 /* ParentShieldButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000011F /* ParentShieldButton.swift */; };
 		000000000000000000000122 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000121 /* Assets.xcassets */; };
-		000000000000000000000124 /* boing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000123 /* boing.wav */; };
-		000000000000000000000126 /* bubble_pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000125 /* bubble_pop.wav */; };
-		000000000000000000000128 /* chime_a4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000127 /* chime_a4.wav */; };
-		00000000000000000000012A /* chime_c4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000129 /* chime_c4.wav */; };
-		00000000000000000000012C /* chime_c5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000012B /* chime_c5.wav */; };
-		00000000000000000000012E /* chime_d4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000012D /* chime_d4.wav */; };
-		000000000000000000000130 /* chime_e4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000012F /* chime_e4.wav */; };
-		000000000000000000000132 /* chime_g4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000131 /* chime_g4.wav */; };
-		000000000000000000000134 /* lullaby.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000133 /* lullaby.wav */; };
-		000000000000000000000136 /* meow.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000135 /* meow.wav */; };
-		000000000000000000000138 /* moo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000137 /* moo.wav */; };
-		00000000000000000000013A /* quack.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000139 /* quack.wav */; };
-		00000000000000000000013C /* ribbit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000013B /* ribbit.wav */; };
-		00000000000000000000013E /* sparkle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000013D /* sparkle.wav */; };
-		000000000000000000000140 /* unlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000013F /* unlock.wav */; };
-		000000000000000000000142 /* woof.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000141 /* woof.wav */; };
+		000000000000000000000124 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000123 /* PrivacyInfo.xcprivacy */; };
+		000000000000000000000126 /* boing.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000125 /* boing.wav */; };
+		000000000000000000000128 /* bubble_pop.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000127 /* bubble_pop.wav */; };
+		00000000000000000000012A /* chime_a4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000129 /* chime_a4.wav */; };
+		00000000000000000000012C /* chime_c4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000012B /* chime_c4.wav */; };
+		00000000000000000000012E /* chime_c5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000012D /* chime_c5.wav */; };
+		000000000000000000000130 /* chime_d4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000012F /* chime_d4.wav */; };
+		000000000000000000000132 /* chime_e4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000131 /* chime_e4.wav */; };
+		000000000000000000000134 /* chime_g4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000133 /* chime_g4.wav */; };
+		000000000000000000000136 /* lullaby.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000135 /* lullaby.wav */; };
+		000000000000000000000138 /* meow.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000137 /* meow.wav */; };
+		00000000000000000000013A /* moo.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000139 /* moo.wav */; };
+		00000000000000000000013C /* quack.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000013B /* quack.wav */; };
+		00000000000000000000013E /* ribbit.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000013D /* ribbit.wav */; };
+		000000000000000000000140 /* sparkle.wav in Resources */ = {isa = PBXBuildFile; fileRef = 00000000000000000000013F /* sparkle.wav */; };
+		000000000000000000000142 /* unlock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000141 /* unlock.wav */; };
+		000000000000000000000144 /* woof.wav in Resources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000143 /* woof.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,22 +61,23 @@
 		00000000000000000000011D /* ParentGuideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToddlerPlay/Sources/Views/ParentLock/ParentGuideView.swift"; sourceTree = "<group>"; };
 		00000000000000000000011F /* ParentShieldButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToddlerPlay/Sources/Views/ParentLock/ParentShieldButton.swift"; sourceTree = "<group>"; };
 		000000000000000000000121 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "ToddlerPlay/Resources/Assets.xcassets"; sourceTree = "<group>"; };
-		000000000000000000000123 /* boing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/boing.wav"; sourceTree = "<group>"; };
-		000000000000000000000125 /* bubble_pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/bubble_pop.wav"; sourceTree = "<group>"; };
-		000000000000000000000127 /* chime_a4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/chime_a4.wav"; sourceTree = "<group>"; };
-		000000000000000000000129 /* chime_c4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/chime_c4.wav"; sourceTree = "<group>"; };
-		00000000000000000000012B /* chime_c5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/chime_c5.wav"; sourceTree = "<group>"; };
-		00000000000000000000012D /* chime_d4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/chime_d4.wav"; sourceTree = "<group>"; };
-		00000000000000000000012F /* chime_e4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/chime_e4.wav"; sourceTree = "<group>"; };
-		000000000000000000000131 /* chime_g4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/chime_g4.wav"; sourceTree = "<group>"; };
-		000000000000000000000133 /* lullaby.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/lullaby.wav"; sourceTree = "<group>"; };
-		000000000000000000000135 /* meow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/meow.wav"; sourceTree = "<group>"; };
-		000000000000000000000137 /* moo.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/moo.wav"; sourceTree = "<group>"; };
-		000000000000000000000139 /* quack.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/quack.wav"; sourceTree = "<group>"; };
-		00000000000000000000013B /* ribbit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/ribbit.wav"; sourceTree = "<group>"; };
-		00000000000000000000013D /* sparkle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/sparkle.wav"; sourceTree = "<group>"; };
-		00000000000000000000013F /* unlock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/unlock.wav"; sourceTree = "<group>"; };
-		000000000000000000000141 /* woof.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/woof.wav"; sourceTree = "<group>"; };
+		000000000000000000000123 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "ToddlerPlay/Resources/PrivacyInfo.xcprivacy"; sourceTree = "<group>"; };
+		000000000000000000000125 /* boing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/boing.wav"; sourceTree = "<group>"; };
+		000000000000000000000127 /* bubble_pop.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/bubble_pop.wav"; sourceTree = "<group>"; };
+		000000000000000000000129 /* chime_a4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/chime_a4.wav"; sourceTree = "<group>"; };
+		00000000000000000000012B /* chime_c4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/chime_c4.wav"; sourceTree = "<group>"; };
+		00000000000000000000012D /* chime_c5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/chime_c5.wav"; sourceTree = "<group>"; };
+		00000000000000000000012F /* chime_d4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/chime_d4.wav"; sourceTree = "<group>"; };
+		000000000000000000000131 /* chime_e4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/chime_e4.wav"; sourceTree = "<group>"; };
+		000000000000000000000133 /* chime_g4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/chime_g4.wav"; sourceTree = "<group>"; };
+		000000000000000000000135 /* lullaby.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/lullaby.wav"; sourceTree = "<group>"; };
+		000000000000000000000137 /* meow.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/meow.wav"; sourceTree = "<group>"; };
+		000000000000000000000139 /* moo.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/moo.wav"; sourceTree = "<group>"; };
+		00000000000000000000013B /* quack.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/quack.wav"; sourceTree = "<group>"; };
+		00000000000000000000013D /* ribbit.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/ribbit.wav"; sourceTree = "<group>"; };
+		00000000000000000000013F /* sparkle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/sparkle.wav"; sourceTree = "<group>"; };
+		000000000000000000000141 /* unlock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/unlock.wav"; sourceTree = "<group>"; };
+		000000000000000000000143 /* woof.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = "ToddlerPlay/Resources/Sounds/woof.wav"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,22 +127,23 @@
 			isa = PBXGroup;
 			children = (
 				000000000000000000000121 /* Assets.xcassets */,
-				000000000000000000000123 /* boing.wav */,
-				000000000000000000000125 /* bubble_pop.wav */,
-				000000000000000000000127 /* chime_a4.wav */,
-				000000000000000000000129 /* chime_c4.wav */,
-				00000000000000000000012B /* chime_c5.wav */,
-				00000000000000000000012D /* chime_d4.wav */,
-				00000000000000000000012F /* chime_e4.wav */,
-				000000000000000000000131 /* chime_g4.wav */,
-				000000000000000000000133 /* lullaby.wav */,
-				000000000000000000000135 /* meow.wav */,
-				000000000000000000000137 /* moo.wav */,
-				000000000000000000000139 /* quack.wav */,
-				00000000000000000000013B /* ribbit.wav */,
-				00000000000000000000013D /* sparkle.wav */,
-				00000000000000000000013F /* unlock.wav */,
-				000000000000000000000141 /* woof.wav */,
+				000000000000000000000123 /* PrivacyInfo.xcprivacy */,
+				000000000000000000000125 /* boing.wav */,
+				000000000000000000000127 /* bubble_pop.wav */,
+				000000000000000000000129 /* chime_a4.wav */,
+				00000000000000000000012B /* chime_c4.wav */,
+				00000000000000000000012D /* chime_c5.wav */,
+				00000000000000000000012F /* chime_d4.wav */,
+				000000000000000000000131 /* chime_e4.wav */,
+				000000000000000000000133 /* chime_g4.wav */,
+				000000000000000000000135 /* lullaby.wav */,
+				000000000000000000000137 /* meow.wav */,
+				000000000000000000000139 /* moo.wav */,
+				00000000000000000000013B /* quack.wav */,
+				00000000000000000000013D /* ribbit.wav */,
+				00000000000000000000013F /* sparkle.wav */,
+				000000000000000000000141 /* unlock.wav */,
+				000000000000000000000143 /* woof.wav */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -211,22 +214,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				000000000000000000000122 /* Assets.xcassets in Resources */,
-				000000000000000000000124 /* boing.wav in Resources */,
-				000000000000000000000126 /* bubble_pop.wav in Resources */,
-				000000000000000000000128 /* chime_a4.wav in Resources */,
-				00000000000000000000012A /* chime_c4.wav in Resources */,
-				00000000000000000000012C /* chime_c5.wav in Resources */,
-				00000000000000000000012E /* chime_d4.wav in Resources */,
-				000000000000000000000130 /* chime_e4.wav in Resources */,
-				000000000000000000000132 /* chime_g4.wav in Resources */,
-				000000000000000000000134 /* lullaby.wav in Resources */,
-				000000000000000000000136 /* meow.wav in Resources */,
-				000000000000000000000138 /* moo.wav in Resources */,
-				00000000000000000000013A /* quack.wav in Resources */,
-				00000000000000000000013C /* ribbit.wav in Resources */,
-				00000000000000000000013E /* sparkle.wav in Resources */,
-				000000000000000000000140 /* unlock.wav in Resources */,
-				000000000000000000000142 /* woof.wav in Resources */,
+				000000000000000000000124 /* PrivacyInfo.xcprivacy in Resources */,
+				000000000000000000000126 /* boing.wav in Resources */,
+				000000000000000000000128 /* bubble_pop.wav in Resources */,
+				00000000000000000000012A /* chime_a4.wav in Resources */,
+				00000000000000000000012C /* chime_c4.wav in Resources */,
+				00000000000000000000012E /* chime_c5.wav in Resources */,
+				000000000000000000000130 /* chime_d4.wav in Resources */,
+				000000000000000000000132 /* chime_e4.wav in Resources */,
+				000000000000000000000134 /* chime_g4.wav in Resources */,
+				000000000000000000000136 /* lullaby.wav in Resources */,
+				000000000000000000000138 /* meow.wav in Resources */,
+				00000000000000000000013A /* moo.wav in Resources */,
+				00000000000000000000013C /* quack.wav in Resources */,
+				00000000000000000000013E /* ribbit.wav in Resources */,
+				000000000000000000000140 /* sparkle.wav in Resources */,
+				000000000000000000000142 /* unlock.wav in Resources */,
+				000000000000000000000144 /* woof.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -319,6 +323,10 @@
 				INFOPLIST_KEY_WKApplication = YES;
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				INFOPLIST_KEY_WKBackgroundModes = "self-care";
+				MARKETING_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_KEY_CFBundleShortVersionString = 1.0.0;
+				INFOPLIST_KEY_CFBundleVersion = 1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -350,6 +358,10 @@
 				INFOPLIST_KEY_WKApplication = YES;
 				INFOPLIST_KEY_WKWatchOnly = YES;
 				INFOPLIST_KEY_WKBackgroundModes = "self-care";
+				MARKETING_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 1;
+				INFOPLIST_KEY_CFBundleShortVersionString = 1.0.0;
+				INFOPLIST_KEY_CFBundleVersion = 1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
