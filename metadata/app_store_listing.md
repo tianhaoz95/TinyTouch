@@ -100,3 +100,14 @@ Deep starry night with a smiling crescent moon and a soothing music-box lullaby 
 * **Data Collection**: `Data Not Collected` (TinyTouch does not collect, store, or transmit any user data)
 * **Third-Party Ads**: `No`
 * **In-App Purchases**: `No`
+
+### Guideline 1.3 (Kids Category) Compliance Responses:
+1. **Does the app include third-party analytics? If so, please provide details about what data is collected for this purpose.**  
+   *Answer*: No. TinyTouch contains zero third-party analytics frameworks, SDKs, or tracking tools.
+2. **Does the app include third-party advertising? If so, please provide a link to the ad network's publicly-documented practices and policies for kids apps.**  
+   *Answer*: No. TinyTouch contains zero third-party advertising, ad networks, or promotional SDKs.
+3. **Will the data be shared with any third parties? If so, for what purposes and where will this information be stored?**  
+   *Answer*: No. TinyTouch does not collect, store, or share any data with any third parties. The app operates 100% offline.
+4. **Is the app collecting any user or device data for purposes beyond third-party analytics or third-party advertising? If so, please provide a complete and clear explanation of all planned uses of this data.**  
+   *Answer*: No. TinyTouch collects zero user or device data. All audio synthesis, haptics, and game state logic run entirely locally on-device. The only communication is local peer-to-peer WatchConnectivity between the user's paired iPhone and Apple Watch over Bluetooth/Wi-Fi.
+
