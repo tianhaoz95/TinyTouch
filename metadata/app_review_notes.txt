@@ -29,7 +29,16 @@ TinyTouch features a toddler-proof "Parent Shield" to prevent children from acci
 5. TARGET AUDIENCE:
 • Designed for parents holding an 18-month-old toddler (Made for Kids: Ages 5 and Under).
 
-6. GUIDELINE 1.3 (KIDS CATEGORY) & PRIVACY COMPLIANCE:
+6. CLARIFICATION -- NOT A PET APP:
+• TinyTouch contains an "Animal Friends" sensory mode featuring bouncy cartoon
+  animals (Puppy, Kitty, Duck, Cow, Frog, Bear) with authentic animal sounds
+  and gentle spoken words (e.g. "Duck! Quack quack!") to encourage early
+  speech mimicry.
+• This is a passive sensory/audio activity only. There is NO pet feeding,
+  pet care, pet breeding, virtual pet ownership, or any pet-management
+  simulation mechanic anywhere in this app.
+
+7. GUIDELINE 1.3 (KIDS CATEGORY) & PRIVACY COMPLIANCE:
 • Does the app include third-party analytics?
   No. TinyTouch does not include any third-party analytics SDKs, libraries, or tracking frameworks.
 • Does the app include third-party advertising?
