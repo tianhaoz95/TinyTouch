@@ -18,8 +18,8 @@ Welcome to the **TinyTouch** (formerly ToddlerPlay) repository. This document se
 - **watchOS App Bundle ID**: `com.tianhaoz.tinytouch.watchkitapp`
 - **Complication Widget Bundle ID**: `com.tianhaoz.tinytouch.watchkitapp.widget`
 - **Development Team ID**: `68CTFST8W2` (HEJI TECHNOLOGY LLC)
-- **Current Marketing Version**: `1.4`
-- **Current Build Number**: `6`
+- **Current Marketing Version**: `1.5`
+- **Current Build Number**: `7`
 - **Minimum Deployments**: iOS 17.0+ / watchOS 10.0+
 - **Category**: Games > Kids (Ages 5 and Under), Family
 
