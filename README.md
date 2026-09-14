@@ -3,6 +3,18 @@
 A child-development play experience and accidental-touch shield designed specifically for parents holding an 18-month-old toddler with an Apple Watch, paired with an iPhone companion remote.
 
 <p align="center">
+  <a href="https://github.com/tianhaoz95/TinyTouch/actions/workflows/testflight-release.yml">
+    <img src="https://github.com/tianhaoz95/TinyTouch/actions/workflows/testflight-release.yml/badge.svg" alt="TestFlight Release Status">
+  </a>
+  <a href="https://github.com/tianhaoz95/TinyTouch/actions/workflows/pages.yml">
+    <img src="https://github.com/tianhaoz95/TinyTouch/actions/workflows/pages.yml/badge.svg" alt="Deploy GitHub Pages Status">
+  </a>
+  <a href="https://apps.apple.com/us/app/tinytouch-toddler-lock-play/id6809942800">
+    <img src="https://img.shields.io/badge/App_Store-Ready_for_Sale-34C759?logo=apple&logoColor=white" alt="App Store Status">
+  </a>
+</p>
+
+<p align="center">
   <a href="https://apps.apple.com/us/app/tinytouch-toddler-lock-play/id6809942800" target="_blank">
     <img src="docs/assets/images/app_store_badge.svg" alt="Download on the App Store" height="52">
   </a>
@@ -159,6 +171,10 @@ When you create the app record:
 4. When parents download TinyTouch on their iPhone, it automatically installs the game onto their paired Apple Watch!
 
 ### Automated CI/CD TestFlight Release (GitHub Actions)
+
+[![TestFlight Release](https://github.com/tianhaoz95/TinyTouch/actions/workflows/testflight-release.yml/badge.svg)](https://github.com/tianhaoz95/TinyTouch/actions/workflows/testflight-release.yml)
+[![Deploy GitHub Pages](https://github.com/tianhaoz95/TinyTouch/actions/workflows/pages.yml/badge.svg)](https://github.com/tianhaoz95/TinyTouch/actions/workflows/pages.yml)
+
 The repository includes a GitHub Actions workflow (`.github/workflows/testflight-release.yml`) that automatically runs tests, creates a universal signed archive (iOS + embedded watchOS + Widget), and uploads directly to TestFlight.
 
 - **Automatic Trigger**: Pushing to `main` or pushing a version tag (e.g., `git tag v1.4 && git push origin v1.4`).
