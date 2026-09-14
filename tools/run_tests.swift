@@ -165,7 +165,9 @@ testGroup("Play Timer & Auto-Transition to Lullaby") {
 }
 
 testGroup("Sound Assets Validation") {
-    let soundsDir = "/Users/tianhaoz/GitHub/watch_game/ToddlerPlay/Resources/Sounds"
+    let soundsDir = FileManager.default.fileExists(atPath: "ToddlerPlay/Resources/Sounds")
+        ? "ToddlerPlay/Resources/Sounds"
+        : URL(fileURLWithPath: #file).deletingLastPathComponent().deletingLastPathComponent().appendingPathComponent("ToddlerPlay/Resources/Sounds").path
     let requiredSounds = [
         "bubble_pop.wav", "boing.wav", "sparkle.wav", "quack.wav", "woof.wav",
         "meow.wav", "moo.wav", "ribbit.wav", "lullaby.wav", "unlock.wav",
