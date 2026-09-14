@@ -181,15 +181,15 @@
       gap: 6px;
     }
 
-    /* Device Preview & Video Showcase */
+    /* Device Preview Showcase (Apple Watch + iPhone Symmetry) */
     .preview-showcase {
-      max-width: 1200px;
-      margin: 50px auto 80px;
+      max-width: 1100px;
+      margin: 40px auto 70px;
       padding: 0 24px;
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      gap: 28px;
+      align-items: center;
+      gap: 32px;
       flex-wrap: wrap;
     }
     .device-card {
@@ -212,24 +212,10 @@
       display: block;
     }
     .watch-card img {
-      width: 220px;
+      width: 230px;
     }
     .phone-card img {
-      width: 260px;
-    }
-    .video-card {
-      max-width: 270px;
-      background: #000;
-      border: 2px solid rgba(124, 77, 255, 0.35);
-      box-shadow: 0 20px 50px rgba(124, 77, 255, 0.25);
-    }
-    .video-card video {
-      width: 100%;
-      height: auto;
-      max-height: 480px;
-      border-radius: 20px;
-      display: block;
-      background: #000;
+      width: 270px;
     }
     .device-card .caption {
       margin-top: 14px;
@@ -237,8 +223,95 @@
       font-weight: 600;
       color: var(--text-muted);
     }
-    .video-card .caption {
-      color: #B388FF;
+
+    /* Dedicated Video Feature Showcase */
+    .video-feature-section {
+      background: radial-gradient(circle at 50% 20%, rgba(124, 77, 255, 0.12) 0%, rgba(13, 17, 23, 0.9) 70%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 24px;
+    }
+    .video-feature-container {
+      max-width: 1050px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+    .video-frame-wrapper {
+      flex-shrink: 0;
+    }
+    .video-frame {
+      width: 280px;
+      background: #000;
+      border: 4px solid #2D333B;
+      border-radius: 36px;
+      padding: 10px;
+      box-shadow: 0 25px 60px rgba(124, 77, 255, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      position: relative;
+    }
+    .video-frame video {
+      width: 100%;
+      height: auto;
+      border-radius: 26px;
+      display: block;
+      background: #000;
+    }
+    .video-info {
+      flex: 1;
+      min-width: 300px;
+      max-width: 560px;
+    }
+    .video-info h2 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #C7D2FE 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .video-info p.lead {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
+    .video-feature-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+    .video-feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: rgba(22, 27, 34, 0.75);
+      border: 1px solid var(--border);
+      padding: 14px 18px;
+      border-radius: 16px;
+      backdrop-filter: blur(8px);
+    }
+    .video-feature-item .icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      line-height: 1;
+      margin-top: 2px;
+    }
+    .video-feature-item h4 {
+      font-size: 0.98rem;
+      font-weight: 600;
+      margin-bottom: 3px;
+      color: #fff;
+    }
+    .video-feature-item p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin: 0;
     }
 
     /* Download & QR Section */
@@ -385,13 +458,29 @@
     .activity-item {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 18px;
+      border-radius: 20px;
       padding: 20px;
       text-align: center;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .activity-item:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255, 255, 255, 0.25);
+    }
+    .activity-item img {
+      width: 140px;
+      height: 140px;
+      border-radius: 26px;
+      object-fit: cover;
+      margin-bottom: 14px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
     .activity-item .emoji {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
+      font-size: 1.5rem;
+      margin-bottom: 6px;
     }
     .activity-item h4 {
       font-size: 1.1rem;
@@ -484,6 +573,7 @@
       </a>
       <div class="nav-links">
         <a href="#features">Features</a>
+        <a href="#demo">Demo Video</a>
         <a href="#activities">Activities</a>
         <a href="#safety">Safety Guide</a>
         <a href="support.html">Support</a>
@@ -513,15 +603,11 @@
     </div>
   </section>
 
-  <!-- Visual Device Showcase & Promo Video -->
+  <!-- Visual Device Showcase (Symmetrical Apple Watch + iPhone Companion) -->
   <section class="preview-showcase">
     <div class="device-card watch-card">
       <img src="assets/images/bubble_pop.png" alt="TinyTouch Apple Watch Bubble Pop">
-      <div class="caption">⌚ Apple Watch Toddler Play</div>
-    </div>
-    <div class="device-card video-card">
-      <video src="assets/videos/app-store-connect-promo-video.mp4" poster="assets/images/video_poster.jpg" autoplay loop muted playsinline controls></video>
-      <div class="caption">🎬 App Store Promo Video</div>
+      <div class="caption">🫧 Bubble Pop Sensory Mode</div>
     </div>
     <div class="device-card phone-card">
       <img src="assets/images/iphone_companion_dashboard.png" alt="TinyTouch iPhone Parent Remote">
@@ -529,7 +615,56 @@
     </div>
     <div class="device-card watch-card">
       <img src="assets/images/animal_friends.png" alt="TinyTouch Apple Watch Animals">
-      <div class="caption">🐶 Animal Mimicry & Sounds</div>
+      <div class="caption">🐶 Animal Friends & Sounds</div>
+    </div>
+  </section>
+
+  <!-- Watch in Action Video Section -->
+  <section class="video-feature-section" id="demo">
+    <div class="video-feature-container">
+      <div class="video-frame-wrapper">
+        <div class="video-frame">
+          <video src="assets/videos/app-store-connect-promo-video.mp4" poster="assets/images/video_poster.jpg" autoplay loop muted playsinline controls></video>
+        </div>
+      </div>
+      <div class="video-info">
+        <div class="badge">🎬 Official App Store Preview</div>
+        <h2>Designed for Real-Life Toddler Moments</h2>
+        <p class="lead">Watch how TinyTouch captures 100% of edge touches, tames the Digital Crown into a musical toy, and keeps curious toddlers peacefully engaged on your wrist.</p>
+        <div class="video-feature-list">
+          <div class="video-feature-item">
+            <div class="icon">🛡️</div>
+            <div>
+              <h4>Accidental-Touch Lockdown</h4>
+              <p>Edge-to-edge touch shield prevents notification swipes and emergency SOS dials.</p>
+            </div>
+          </div>
+          <div class="video-feature-item">
+            <div class="icon">👑</div>
+            <div>
+              <h4>Digital Crown Musical Toy</h4>
+              <p>Crown spins musical glissandos and inflates giant bubbles instead of closing the app.</p>
+            </div>
+          </div>
+          <div class="video-feature-item">
+            <div class="icon">🔒</div>
+            <div>
+              <h4>3-Second Continuous Hold Gate</h4>
+              <p>Exiting requires a deliberate hold with haptic progress that toddlers cannot trigger.</p>
+            </div>
+          </div>
+          <div class="video-feature-item">
+            <div class="icon">🌙</div>
+            <div>
+              <h4>Tear-Free Lullaby Wind-Down</h4>
+              <p>Automatic gentle music-box lullaby transition when the play session timer ends.</p>
+            </div>
+          </div>
+        </div>
+        <a href="https://apps.apple.com/us/app/tinytouch-toddler-lock-play/id6809942800" target="_blank" class="app-store-badge-btn" title="Download on the App Store">
+          <img src="assets/images/app_store_badge.svg" alt="Download TinyTouch on the App Store">
+        </a>
+      </div>
     </div>
   </section>
 
@@ -582,26 +717,31 @@
       </div>
       <div class="activity-list">
         <div class="activity-item">
+          <img src="assets/images/bubble_pop.png" alt="Bubble Pop Sensory Mode" loading="lazy">
           <div class="emoji">🫧</div>
           <h4>Bubble Pop</h4>
           <p>Translucent bubbles that pop into confetti; Crown inflates a giant bubble.</p>
         </div>
         <div class="activity-item">
+          <img src="assets/images/animal_friends.png" alt="Animal Friends Sensory Mode" loading="lazy">
           <div class="emoji">🐶</div>
           <h4>Animal Friends</h4>
           <p>Springy puppy, kitty, duck & frog with cute sounds and spoken words.</p>
         </div>
         <div class="activity-item">
+          <img src="assets/images/sound_garden.png" alt="Sound Garden Sensory Mode" loading="lazy">
           <div class="emoji">🎵</div>
           <h4>Sound Garden</h4>
           <p>5 pentatonic chime bars. Mathematically consonant—every tap sounds musical.</p>
         </div>
         <div class="activity-item">
+          <img src="assets/images/magic_sparkles.png" alt="Magic Sparkles Sensory Mode" loading="lazy">
           <div class="emoji">✨</div>
           <h4>Magic Sparkles</h4>
           <p>OLED-black canvas where little fingers leave rainbow stardust trails.</p>
         </div>
         <div class="activity-item">
+          <img src="assets/images/sleepy_moon.png" alt="Sleepy Moon Sensory Mode" loading="lazy">
           <div class="emoji">🌙</div>
           <h4>Sleepy Moon</h4>
           <p>Midnight sky with smiling crescent moon and soft music-box lullaby.</p>
