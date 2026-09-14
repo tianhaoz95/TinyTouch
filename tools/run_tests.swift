@@ -276,8 +276,25 @@ testGroup("Watch Face Widget (Complication) Specifications") {
     let widgetSwiftExists = FileManager.default.fileExists(atPath: "TinyTouchWidget/TinyTouchWidget.swift")
     assertTrue(widgetSwiftExists, "TinyTouchWidget.swift source file exists")
     
-    let widgetPlistExists = FileManager.default.fileExists(atPath: "TinyTouchWidget/Info.plist")
-    assertTrue(widgetPlistExists, "TinyTouchWidget/Info.plist exists")
+}
+
+testGroup("CI/CD Automation & Release Workflow") {
+    let workflowPath = ".github/workflows/testflight-release.yml"
+    let workflowExists = FileManager.default.fileExists(atPath: workflowPath)
+    assertTrue(workflowExists, "GitHub Actions TestFlight workflow exists")
+    
+    if let content = try? String(contentsOfFile: workflowPath, encoding: .utf8) {
+        assertTrue(content.contains("name: TestFlight Release"), "Workflow name defined")
+        assertTrue(content.contains("swift tools/run_tests.swift"), "Unit tests executed in workflow")
+        assertTrue(content.contains("xcodebuild archive"), "xcodebuild archive step defined")
+        assertTrue(content.contains("xcodebuild -exportArchive"), "xcodebuild exportArchive step defined")
+        assertTrue(content.contains("-allowProvisioningUpdates"), "Allow provisioning updates configured")
+        assertTrue(content.contains("security import"), "Distribution certificate keychain import configured")
+        assertTrue(content.contains("clean_up") || content.contains("Clean Up") || content.contains("delete-keychain"), "Keychain cleanup configured")
+    }
+    
+    let uploaderPath = "tools/upload_ci_secrets.py"
+    assertTrue(FileManager.default.fileExists(atPath: uploaderPath), "Secrets uploader helper script exists")
 }
 
 

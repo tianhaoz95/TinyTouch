@@ -1,6 +1,20 @@
 # TinyTouch 🧸 (ToddlerPlay for watchOS)
 
-A child-development play experience and accidental-touch shield designed specifically for parents holding an 18-month-old toddler with an Apple Watch.
+A child-development play experience and accidental-touch shield designed specifically for parents holding an 18-month-old toddler with an Apple Watch, paired with an iPhone companion remote.
+
+<p align="center">
+  <a href="https://apps.apple.com/us/app/tinytouch-toddler-lock-play/id6809942800" target="_blank">
+    <img src="docs/assets/images/app_store_badge.svg" alt="Download on the App Store" height="52">
+  </a>
+</p>
+
+<div align="center">
+
+| 📱 Scan with iPhone to Download | 🎬 App Store Connect Promo Video |
+| :---: | :---: |
+| <a href="https://apps.apple.com/us/app/tinytouch-toddler-lock-play/id6809942800"><img src="docs/assets/images/app_store_qr.png" width="180" alt="App Store QR Code" /></a><br><sub><a href="https://apps.apple.com/us/app/tinytouch-toddler-lock-play/id6809942800"><b>View on App Store ↗</b></a></sub> | <video src="docs/assets/videos/app-store-connect-promo-video.mp4" poster="docs/assets/images/video_poster.jpg" width="190" controls loop muted playsinline></video><br><sub><a href="docs/assets/videos/app-store-connect-promo-video.mp4"><b>Watch Promo Video (MP4)</b></a></sub> |
+
+</div>
 
 ---
 
@@ -144,15 +158,21 @@ When you create the app record:
 3. Uploading `TinyTouch` uploads the iPhone Companion App with the Apple Watch app (`com.tianhaoz.tinytouch.watchkitapp`) seamlessly embedded inside.
 4. When parents download TinyTouch on their iPhone, it automatically installs the game onto their paired Apple Watch!
 
-### Automated Release Command
-```bash
-./tools/release.sh --api-key <KEY_ID> --api-issuer <ISSUER_ID> --team-id <TEAM_ID>
-```
+### Automated CI/CD TestFlight Release (GitHub Actions)
+The repository includes a GitHub Actions workflow (`.github/workflows/testflight-release.yml`) that automatically runs tests, creates a universal signed archive (iOS + embedded watchOS + Widget), and uploads directly to TestFlight.
+
+- **Automatic Trigger**: Pushing to `main` or pushing a version tag (e.g., `git tag v1.4 && git push origin v1.4`).
+- **Manual Trigger**: Via GitHub Actions UI (**Actions** > **TestFlight Release** > **Run workflow**), with optional dry-run and custom build number.
+- **Sync / Re-provision Secrets**:
+  ```bash
+  python3 tools/upload_ci_secrets.py
+  ```
 
 ---
 
 ## 🌐 Live Website & Links
 
+* **App Store**: [https://apps.apple.com/us/app/tinytouch-toddler-lock-play/id6809942800](https://apps.apple.com/us/app/tinytouch-toddler-lock-play/id6809942800)
 * **Landing Page**: [https://tianhaoz95.github.io/TinyTouch/](https://tianhaoz95.github.io/TinyTouch/)
 * **Support & Parent FAQ**: [https://tianhaoz95.github.io/TinyTouch/support.html](https://tianhaoz95.github.io/TinyTouch/support.html)
 * **Privacy Policy**: [https://tianhaoz95.github.io/TinyTouch/privacy.html](https://tianhaoz95.github.io/TinyTouch/privacy.html)

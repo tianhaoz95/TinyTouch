@@ -236,6 +236,8 @@ Outputs 16 lossless 44.1kHz 16-bit PCM WAVs to both `ToddlerPlay/Resources/Sound
 - **Encryption Exemption**: Always ensure `INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO` is set across all targets to exempt the app from US export compliance questionnaires.
 - **Made for Kids**: Adhere to Apple's strict Kids category guidelines (no outside links without parental gate, no ads, no third-party libraries).
 
-### Deployment Rules
-- **No CI/CD Release Workflows**: Deployments and TestFlight uploads are executed directly from local Xcode by the developer using the **Organizer** window (`Product` > `Archive` > `Distribute App`).
+### Deployment & CI/CD Rules
+- **Automated TestFlight Releases via GitHub Actions**: The repository uses `.github/workflows/testflight-release.yml` to automatically run the unit tests, archive the universal app (iOS + embedded watchOS + Widget), and upload builds to TestFlight upon push to `main`, release tags (`v*`), or via manual `workflow_dispatch`.
+- **CI Secrets Provisioning**: Secrets are provisioned and updated using `python3 tools/upload_ci_secrets.py` via the `gh` CLI. Secrets include the Apple Distribution certificate (.p12), keychain passwords, App Store Connect API Key (`AuthKey_4GZ563TKJ9.p8`), Issuer ID, and Team ID.
+- **Manual / Local Distribution**: Developers can also build/archive locally from Xcode's **Organizer** window (`Product` > `Archive` > `Distribute App`).
 - **Preserve Team Settings**: Team ID must remain `68CTFST8W2` (`HEJI TECHNOLOGY LLC`).
