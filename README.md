@@ -1,5 +1,7 @@
 # TinyTouch 🧸 (ToddlerPlay for watchOS)
 
+> **This repository has moved** to [`tianhaoz95/hejitech-apps`](https://github.com/tianhaoz95/hejitech-apps/tree/main/projects/tinytouch) (`projects/tinytouch`, with its full history) on 2026-10-19. Releases ship from there (`tinytouch-v*`); the site is now https://tianhaoz95.github.io/hejitech-apps/tinytouch/site/. This repo is archived.
+
 A child-development play experience and accidental-touch shield designed specifically for parents holding an 18-month-old toddler with an Apple Watch, paired with an iPhone companion remote.
 
 <p align="center">
